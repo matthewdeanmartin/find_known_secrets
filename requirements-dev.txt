@@ -1,0 +1,39 @@
+################################################################################
+# This requirements file has been automatically generated from `Pipfile` with
+# `pipenv-to-requirements`
+#
+#
+# This has been done to maintain backward compatibility with tools and services
+# that do not support `Pipfile` yet.
+#
+# Do NOT edit it directly, use `pipenv install [-d]` to modify `Pipfile` and
+# `Pipfile.lock` and then regenerate `requirements*.txt`.
+################################################################################
+
+bandit
+checksumdir
+detect-secrets
+jiggle-version
+mccabe
+mypy
+nose
+pandoc
+pip-check
+pipenv-to-requirements
+prospector[with-everything]
+py-find-injection
+pycycle
+pydocstyle
+pyflakes
+pylint
+pynt
+pynt-contrib
+pytest-cov
+pytest-sugar
+python-taint
+radon
+semantic-version
+sphinx
+teamcity-messages
+twine
+vulture

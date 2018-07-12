@@ -102,3 +102,12 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# noise
+detect-secrets-results.txt
+lint.txt
+mypy_errors.txt
+coverage
+.build_state
+
+.idea
