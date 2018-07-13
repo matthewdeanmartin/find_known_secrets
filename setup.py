@@ -1,6 +1,11 @@
 # coding=utf-8
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
+
 import codecs
 import os
 import sys
