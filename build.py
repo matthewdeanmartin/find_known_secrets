@@ -2,6 +2,7 @@
 """
 Stop gap build script until I find something better.
 """
+import sys
 import functools
 import glob
 import json
@@ -181,6 +182,9 @@ def clean():
 @skip_if_no_change("formatting")
 def formatting():
     with safe_cd(SRC):
+        if sys.version_info < (3, 6):
+            print("Black doesn't work on python 2")
+            return
         command = "{0} black {1}".format(PIPENV, PROJECT_NAME).strip()
         print(command)
         execute(*(command.split(" ")))
