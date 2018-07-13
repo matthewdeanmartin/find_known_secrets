@@ -121,8 +121,9 @@ def skip_if_no_change(name):
 
 
 def execute_with_environment(command, env):
-    with subprocess.Popen(command.strip().replace("  ", " ").split(" "), env=env) as shell_process:
-        value = shell_process.communicate()  # wait
+    # Python 2 code! Python 3 uses context managers.
+    shell_process =subprocess.Popen(command.strip().replace("  ", " ").split(" "), env=env)
+    value = shell_process.communicate()  # wait
     if shell_process.returncode != 0:
         raise TypeError("Didn't get a zero return code, got : {0}".format(shell_process.returncode))
     return value
