@@ -8,6 +8,7 @@ python:
   - "3.6"
 # command to install dependencies
 install:
+  - pip install -U pip
   - pip install -r requirements.txt
   - pip install -r requirements_dev.txt
   - pip install "attrs>=17.4.0" --upgrade
