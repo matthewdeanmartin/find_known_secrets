@@ -17,7 +17,9 @@ from semantic_version import Version
 
 PROJECT_NAME = "find_known_secrets"
 SRC = '.'
-PYTHON = "python3.6"
+
+# generic python
+PYTHON = "python"
 IS_DJANGO = False
 IS_TRAVIS = 'TRAVIS' in os.environ
 if IS_TRAVIS:
