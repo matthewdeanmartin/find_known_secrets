@@ -53,6 +53,9 @@ class UploadCommand(Command):
             rmtree(os.path.join(here, 'dist'))
         except FileNotFoundError:
             pass
+        except OSError:
+            pass
+
         self.status('Building Source distribution…')
         os.system('{0} setup.py sdist'.format(sys.executable))
 

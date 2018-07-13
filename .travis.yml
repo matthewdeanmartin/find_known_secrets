@@ -13,6 +13,7 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements-dev.txt
   - pip install "attrs>=17.4.0" --upgrade
+  - pip install jiggle_version --upgrade
 
 # command to run tests
 script: pynt package
