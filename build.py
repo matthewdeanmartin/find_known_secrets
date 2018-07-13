@@ -19,7 +19,11 @@ PROJECT_NAME = "find_known_secrets"
 SRC = '.'
 PYTHON = "python3.6"
 IS_DJANGO = False
-PIPENV = "pipenv run"
+IS_TRAVIS = 'TRAVIS' in os.environ
+if IS_TRAVIS:
+    PIPENV = ""
+else:
+    PIPENV = "pipenv run"
 GEM_FURY = ""
 
 CURRENT_HASH = None

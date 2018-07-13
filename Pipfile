@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 docopt = "*"
-black = "*"
 
 [dev-packages]
+black = "*"
 nose = "*"
 twine = "*"
 teamcity-messages = "*"
@@ -35,6 +35,7 @@ pipenv-to-requirements = "*"
 checksumdir = "*"
 semantic-version = "*"
 jiggle-version = "*"
+safety = "*"
 
 [requires]
 python_version = "3.6"
