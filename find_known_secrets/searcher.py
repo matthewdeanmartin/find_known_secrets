@@ -13,6 +13,8 @@ from __future__ import unicode_literals
 from __future__ import division
 from typing import List
 
+import fnmatch
+import os
 import glob
 import os
 
@@ -54,7 +56,16 @@ def search_known_secrets(source, debug=False):  # type: (str, bool) -> None
     """
     count = 0
     here = os.path.abspath(source)
-    for file in glob.glob(here + "/" + "**/*.*", recursive=True):
+    # python 3 only!
+    # for file in glob.glob(here + "/" + "**/*.*", recursive=True):
+
+    # py 2
+    matches = []
+    for root, dirnames, filenames in os.walk(here + "/"):
+        for filename in filenames:
+            matches.append(os.path.join(root, filename))
+
+    for file in matches:
         print(file)
         if os.path.isdir(file):
             continue
