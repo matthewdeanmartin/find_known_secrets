@@ -39,7 +39,7 @@ def append_known_secrets(source, debug=False):  # type: (str, bool) -> None
                 if line and "=" in line:
                     possible = line.split("=")[1].strip(" \"'\n")
                     if len(possible) > 4 and possible not in false_positives:
-                            secrets.append(possible)
+                        secrets.append(possible)
 
     print(secrets)
 
