@@ -324,7 +324,7 @@ def coverage():
     print("Coverage tests always re-run")
     with safe_cd(SRC):
         my_env = config_pythonpath()
-        command = "{0} py.test {1} --cov={2} --cov-report html:coverage --cov-fail-under 67  --verbose".format(
+        command = "{0} py.test {1} --cov={2} --cov-report html:coverage --cov-fail-under 60  --verbose".format(
             PIPENV,
             "test", PROJECT_NAME)
         print(command)
@@ -350,7 +350,13 @@ def pip_check():
 @task()
 def compile_mark_down():
     with safe_cd(SRC):
-        execute("pipenv", "run", "pandoc", *("--from=markdown --to=rst --output=README.rst README.md".split(" ")))
+        if IS_TRAVIS:
+            command = "pandoc --from=markdown --to=rst --output=README.rst README.md".strip().split(
+                " ")
+        else:
+            command = "{0} pandoc --from=markdown --to=rst --output=README.rst README.md".format(PIPENV).strip().split(
+                " ")
+        execute(*(command))
 
 
 @task()
