@@ -9,7 +9,6 @@ import json
 import os
 import socket
 import subprocess
-from json import JSONDecodeError
 
 from checksumdir import dirhash
 from pynt import task
@@ -230,16 +229,18 @@ def detect_secrets():
     with open(errors_file, "w+") as file_handle:
         file_handle.write(out.decode())
 
-    try:
-        with open(errors_file) as f:
-            data = json.load(f)
 
-        if data["results"]:
-            for result in data["results"]:
-                print(result)
-            raise TypeError("detect-secrets has discovered high entropy strings, possibly passwords?")
-    except JSONDecodeError:
-        pass
+    with open(errors_file) as f:
+        try:
+            data = json.load(f)
+        except Exception:
+            print("Can't read json")
+
+    if data["results"]:
+        for result in data["results"]:
+            print(result)
+        raise TypeError("detect-secrets has discovered high entropy strings, possibly passwords?")
+
 
 
 @task(compile, formatting, prospector)
