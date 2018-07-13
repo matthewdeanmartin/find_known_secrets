@@ -31,6 +31,9 @@ def append_known_secrets(source, debug=False):  # type: (str, bool) -> None
     :return:
     """
     for file_name in files:
+        if not os.path.isfile(file_name):
+            print("Don't have " + file_name + ", won't use.")
+            continue
         with open(os.path.expanduser(file_name), "r") as file:
             for line in file:
                 if line and "=" in line:
