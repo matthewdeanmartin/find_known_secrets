@@ -16,7 +16,7 @@ checksumdir
 detect-secrets
 jiggle-version
 mccabe
-mypy
+mypy ; python_version >= '3.4'
 nose
 pandoc
 pip-check

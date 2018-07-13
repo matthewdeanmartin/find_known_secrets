@@ -362,6 +362,9 @@ def compile_mark_down():
 @task()
 @skip_if_no_change("mypy")
 def mypy():
+    if sys.version_info < (3, 4):
+        print("Mypy doesn't work on python < 3.4")
+        return
     mypy_file = "mypy_errors.txt"
     if os.path.isfile(mypy_file):
         execute("rm", mypy_file)
