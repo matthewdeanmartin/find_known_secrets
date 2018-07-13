@@ -383,7 +383,6 @@ def pin_dependencies():
 
 @task()
 def jiggle_version():
-    # This is the primordial version, not the script/library version
     command = "{0} jiggle_version --project={1} --source={2}".format(PIPENV, PROJECT_NAME, "").strip()
     execute(*(command.split(" ")))
 

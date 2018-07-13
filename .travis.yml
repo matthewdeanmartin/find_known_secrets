@@ -1,0 +1,16 @@
+language: python
+addons:
+  apt_packages:
+    - pandoc
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements_dev.txt
+  - pip install "attrs>=17.4.0" --upgrade
+
+# command to run tests
+script: pynt package
