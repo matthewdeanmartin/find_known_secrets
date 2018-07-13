@@ -197,8 +197,8 @@ def compile():
 @skip_if_no_change("prospector")
 def prospector():
     with safe_cd(SRC):
-        command = "{0} prospector {1} --profile {1}_style --pylint-config-file=pylintrc.ini --profile-path=.prospector".format(
-            PIPENV, PROJECT_NAME)
+        command = "{0} prospector {1} --profile {1}_style --pylint-config-file=pylintrc.ini --profile-path=.prospector" \
+            .format(PIPENV, PROJECT_NAME).strip().replace("  ", " ")
         print(command)
         execute(*(command
                   .split(" ")))

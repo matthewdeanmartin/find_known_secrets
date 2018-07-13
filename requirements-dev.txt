@@ -11,6 +11,7 @@
 ################################################################################
 
 bandit
+black
 checksumdir
 detect-secrets
 jiggle-version
@@ -32,6 +33,7 @@ pytest-cov
 pytest-sugar
 python-taint
 radon
+safety
 semantic-version
 sphinx
 teamcity-messages
