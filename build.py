@@ -143,6 +143,9 @@ def git_secrets():
     if check_is_aws():
         # no easy way to install git secrets on ubuntu.
         return
+    if IS_TRAVIS:
+        # nothing is edited on travis
+        return
     try:
         commands = ["git secrets --install", "git secrets --register-aws"]
         for command in commands:
