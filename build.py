@@ -312,7 +312,9 @@ def config_pythonpath():
         env = "DEV"
     else:
         env = "MAC"
-    my_env = {**os.environ, 'ENV': env}
+    my_env = {'ENV': env}
+    for key, value in os.environ.items():
+        my_env[key] = value
     my_env["PYTHONPATH"] = my_env.get("PYTHONPATH",
                                       "") + MAC_LIBS
     print(my_env["PYTHONPATH"])
