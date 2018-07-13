@@ -125,7 +125,12 @@ def execute_with_environment(command, env):
     shell_process =subprocess.Popen(command.strip().replace("  ", " ").split(" "), env=env)
     value = shell_process.communicate()  # wait
     if shell_process.returncode != 0:
-        raise TypeError("Didn't get a zero return code, got : {0}".format(shell_process.returncode))
+        print("Last command failed: ")
+        print(command)
+        print("Didn't get a zero return code, got : {0}".format(shell_process.returncode))
+        exit(-1)
+        return
+        # raise TypeError("Didn't get a zero return code, got : {0}".format(shell_process.returncode))
     return value
 
 
@@ -245,7 +250,10 @@ def detect_secrets():
     if data["results"]:
         for result in data["results"]:
             print(result)
-        raise TypeError("detect-secrets has discovered high entropy strings, possibly passwords?")
+        print("detect-secrets has discovered high entropy strings, possibly passwords?")
+        exit(-1)
+        return
+        # raise TypeError("detect-secrets has discovered high entropy strings, possibly passwords?")
 
 
 
@@ -286,8 +294,10 @@ def lint():
                         "no-name-in-module" in line or \
                         "import-error" in line:
                     print(line)
-
-            raise TypeError("Fatal lint errors : {0}".format(fatal_errors))
+            print("Fatal lint errors : {0}".format(fatal_errors))
+            exit(-1)
+            return
+            #raise TypeError("Fatal lint errors : {0}".format(fatal_errors))
 
         cutoff = 69
         num_lines = sum(1 for line in open(lint_output_file_name)
@@ -295,7 +305,10 @@ def lint():
                         and "---------------------" not in line
                         and "Your code has been rated at" not in line)
         if num_lines > cutoff:
-            raise TypeError("Too many lines of lint : {0}".format(num_lines))
+            print("Too many lines of lint : {0}".format(num_lines))
+            exit(-1)
+            return
+            # raise TypeError("Too many lines of lint : {0}".format(num_lines))
 
 
 @task(lint)
@@ -401,7 +414,10 @@ def mypy():
 
     num_lines = sum(1 for line in open(mypy_file))
     if num_lines > 2:
-        raise TypeError("Too many lines of mypy : {0}".format(num_lines))
+        print("Too many lines of mypy : {0}".format(num_lines))
+        exit(-1)
+        return
+        # raise TypeError("Too many lines of mypy : {0}".format(num_lines))
 
 
 @task()
