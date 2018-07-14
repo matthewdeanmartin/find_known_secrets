@@ -1,5 +1,5 @@
 find_known_secets's documentation
-================================
+=================================
 
 .. toctree::
    :maxdepth: 2

@@ -6,11 +6,12 @@ Submodules
 
 find\_known\_secrets.main module
 --------------------------------
+Sphinx does not know how to document docopt text
 
-.. automodule:: find_known_secrets.main
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. .. automodule:: find_known_secrets.main
+..     :members:
+..     :undoc-members:
+..     :show-inheritance:
 
 find\_known\_secrets.searcher module
 ------------------------------------
