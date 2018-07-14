@@ -36,6 +36,7 @@ checksumdir = "*"
 semantic-version = "*"
 jiggle-version = "*"
 safety = "*"
+sphinx-rtd-theme = "*"
 
 [requires]
 python_version = "3.6"
