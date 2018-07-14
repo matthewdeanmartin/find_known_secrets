@@ -37,6 +37,7 @@ semantic-version = "*"
 jiggle-version = "*"
 safety = "*"
 sphinx-rtd-theme = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.6"
