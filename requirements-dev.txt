@@ -14,7 +14,7 @@ bandit
 black ; python_version >= '3.6'
 checksumdir
 detect-secrets
-jiggle-version
+jiggle-version >= 1.0.27
 mccabe
 mypy ; python_version >= '3.4'
 nose
@@ -31,11 +31,13 @@ pynt
 pynt-contrib
 pytest-cov
 pytest-sugar
+python-coveralls
 python-taint
 radon
 safety
 semantic-version
 sphinx
+sphinx-rtd-theme
 teamcity-messages
 twine
 vulture

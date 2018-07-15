@@ -34,10 +34,10 @@ detect-secrets = "*"
 pipenv-to-requirements = "*"
 checksumdir = "*"
 semantic-version = "*"
-jiggle-version = "*"
+jiggle-version = ">=1.0.27"
 safety = "*"
 sphinx-rtd-theme = "*"
-coveralls = "*"
+python-coveralls = "*"
 
 [requires]
 python_version = "3.6"
