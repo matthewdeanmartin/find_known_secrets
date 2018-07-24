@@ -1,0 +1,8 @@
+requirements:
+  - requirements.txt:
+      # update all dependencies and pin them
+      update: all
+      pin: True
+  - requirements-dev.txt:
+      # don't update dependencies, use global 'pin' default
+      update: False
