@@ -20,7 +20,7 @@ mypy==0.620; python_version >= '3.4'
 nose==1.3.7
 pandoc==1.0.2
 pip-check==2.3.3
-pipenv-to-requirements
+pipenv-to-requirements==0.5.1
 prospector[with-everything]
 py-find-injection
 pycycle
