@@ -31,7 +31,7 @@ pynt==0.8.2
 pynt-contrib==0.2.0
 pytest-cov==2.5.1
 pytest-sugar==0.9.1
-python-coveralls
+python-coveralls==2.9.1
 python-taint
 radon
 safety
