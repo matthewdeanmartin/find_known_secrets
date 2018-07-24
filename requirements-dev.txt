@@ -32,7 +32,7 @@ pynt-contrib
 pytest-cov
 pytest-sugar
 python-coveralls
-python-taint
+python-taint==0.34
 radon
 safety
 semantic-version
