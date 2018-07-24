@@ -23,7 +23,7 @@ pip-check==2.3.3
 pipenv-to-requirements==0.5.1
 prospector[with-everything]==1.0
 py-find-injection==0.1.1
-pycycle
+pycycle==0.0.8
 pydocstyle
 pyflakes
 pylint
