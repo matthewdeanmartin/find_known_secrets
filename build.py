@@ -20,8 +20,7 @@ from semantic_version import Version
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 from build_utils import check_is_aws, skip_if_no_change, execute_with_environment
-# thing = __import__("build_utils.py")
-# skip_if_no_change = thing.skip_if_no_change
+
 
 PROJECT_NAME = "find_known_secrets"
 SRC = '.'
@@ -321,13 +320,45 @@ def pin_dependencies():
         execute(*("{0} pipenv_to_requirements".format(PIPENV).strip().split(" ")))
 
 
+
+@task()
+@skip_if_no_change("vulture", expect_files="dead_code.txt")
+def dead_code():
+    """
+    This also finds code you are working on today!
+    """
+    with safe_cd(SRC):
+        if IS_TRAVIS:
+            command = "{0} vulture {1}".format(PYTHON, PROJECT_NAME).strip().split()
+        else:
+            command = "{0} vulture {1}".format(PIPENV, PROJECT_NAME).strip().split()
+
+        output_file_name = "dead_code.txt"
+        with open(output_file_name, "w") as outfile:
+            env = config_pythonpath()
+            subprocess.call(command, stdout=outfile, env=env)
+
+        cutoff = 20
+        num_lines = sum(1 for line in open(output_file_name) if line)
+        if num_lines > cutoff:
+            print("Too many lines of dead code : {0}, max {1}".format(num_lines, cutoff))
+            exit(-1)
+
 @task()
 def jiggle_version():
     command = "{0} jiggle_version --project={1} --source={2}".format(PIPENV, PROJECT_NAME, "").strip()
     execute(*(command.split(" ")))
 
 
-@task(formatting, mypy, detect_secrets, git_secrets, nose_tests, coverage, compile, lint,
+@task()
+def check_setup_py():
+    with safe_cd(SRC):
+        if IS_TRAVIS:
+            execute(PYTHON, *("setup.py check -r -s".split(" ")))
+        else:
+            execute(*("{0} {1} setup.py check -r -s".format(PIPENV, PYTHON).strip().split(" ")))
+
+@task(formatting, mypy, detect_secrets, git_secrets, check_setup_py, nose_tests, coverage, compile, dead_code, lint,
       compile_mark_down, pin_dependencies, jiggle_version)  # docs ... later
 @skip_if_no_change("package")
 def package():
@@ -420,12 +451,6 @@ def gemfury():
 def echo(*args, **kwargs):
     print(args)
     print(kwargs)
-
-
-@task()
-def dead_code():
-    with safe_cd(SRC):
-        execute(*("{0} vulture {1}".format(PIPENV, PROJECT_NAME).strip().split(" ")))
 
 
 # Default task (if specified) is run when no task is specified in the command line

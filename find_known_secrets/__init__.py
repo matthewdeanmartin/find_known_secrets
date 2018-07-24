@@ -3,4 +3,4 @@
 Version and convenience imports
 """
 
-__version__ = "1.0.17"
+__version__ = "1.0.23"

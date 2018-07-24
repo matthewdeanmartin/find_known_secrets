@@ -8,15 +8,14 @@
   currently set in the environment
 
 """
+from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-from __future__ import division
+
+import os
 from typing import List
 
-import fnmatch
-import os
-import glob
-import os
+_ = List
 
 files = ["~/.aws/credentials"]
 

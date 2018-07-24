@@ -14,11 +14,12 @@ Options:
   --version     Show version.
   --debug=<debug>  Show diagnostic info [default: False].
 """
+from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-from __future__ import division
-import os
+
 import logging
+
 from docopt import docopt
 
 from find_known_secrets.searcher import go
@@ -26,8 +27,7 @@ from find_known_secrets.searcher import go
 logger = logging.getLogger(__name__)
 
 
-def process_docopts():
-    # type: ()->None
+def process_docopts():  # type: ()->None
     """
     Take care of command line options
     """

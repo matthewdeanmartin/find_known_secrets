@@ -26,7 +26,6 @@ if sys.argv[-1] == "publish":
     os.system("python setup.py sdist bdist_wheel upload")
     sys.exit()
 required = [
-    'semantic_version',
     'docopt'
 ]
 
@@ -71,7 +70,7 @@ class UploadCommand(Command):
 setup(
     name=PROJECT_NAME,
     version=about['__version__'],
-    description='Opinionated, no config build version incrementer. No regex. Drop in and go.',
+    description='Find secrets in your source code using lists of secrets you already know',
     long_description=long_description,
     # markdown is not supported. Easier to just convert md to rst with pandoc
     # long_description_content_type='text/markdown',

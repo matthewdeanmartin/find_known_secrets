@@ -1,0 +1,2 @@
+find_known_secrets/searcher.py:26: unused variable 'skip_files' (60% confidence)
+find_known_secrets/searcher.py:63: unused variable 'dirnames' (60% confidence)

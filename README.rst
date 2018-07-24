@@ -6,7 +6,8 @@ Scan for known secrets in your source code before you check in
 badges
 ------
 
-|MIT licensed| |Read the Docs| |Travis| |Coverage Status|
+|MIT licensed| |Read the Docs| |Travis| |Coverage Status| |BCH
+compliance|
 
 Three Ways to Detect Secrets
 ----------------------------
@@ -28,3 +29,5 @@ All three approaches have different failure profiles.
 .. |Travis| image:: https://travis-ci.com/matthewdeanmartin/jiggle_version.svg?branch=master
 .. |Coverage Status| image:: https://coveralls.io/repos/github/matthewdeanmartin/find_known_secrets/badge.svg?branch=master
    :target: https://coveralls.io/github/matthewdeanmartin/find_known_secrets?branch=master
+.. |BCH compliance| image:: https://bettercodehub.com/edge/badge/matthewdeanmartin/find_known_secrets?branch=master
+   :target: https://bettercodehub.com/

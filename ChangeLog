@@ -1,0 +1,32 @@
+CHANGES
+=======
+
+* jiggle ver
+* coveralls maybe
+* one more thing
+* does it work?
+* new error style- exit - no pynt stack noise
+* versions
+* complexity
+* py2 fix
+* FileNotFoundError
+* py2 thing
+* missed some
+* future
+* generic python version
+* json in py2
+* python 2 prob
+* mypy for 2
+* pandoc
+* new reqs
+* py2 compat
+* oops
+* fix white space
+* no git secrets on travis
+* dash
+* more
+* upgrade pip
+* more travis
+* travis stuff
+* essentially complete
+* Initial commit

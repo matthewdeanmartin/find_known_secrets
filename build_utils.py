@@ -1,15 +1,33 @@
-import sys
+# coding=utf-8
+"""
+Things I wish pynt_contrib had.
+"""
 import functools
-import glob
-import json
 import os
 import socket
 import subprocess
 
 from checksumdir import dirhash
+from semantic_version import Version
 
 PROJECT_NAME = "find_known_secrets"
+SRC = '.'
+
+# generic python
+PYTHON = "python"
+IS_DJANGO = False
+IS_TRAVIS = 'TRAVIS' in os.environ
+if IS_TRAVIS:
+    PIPENV = ""
+else:
+    PIPENV = "pipenv run"
+GEM_FURY = ""
+
 CURRENT_HASH = None
+
+MAC_LIBS = ":..:"
+
+
 
 def check_is_aws():
     """
@@ -46,11 +64,16 @@ class BuildState(object):
         global CURRENT_HASH
         directory = self.where
 
-        if CURRENT_HASH is None:
-            CURRENT_HASH = dirhash(directory, 'md5', ignore_hidden=True,
-                                   excluded_files=[".coverage", "lint.txt"],
-                                   excluded_extensions="pyc")
+        # if CURRENT_HASH is None:
+        # print("hashing " + directory)
+        # print(os.listdir(directory))
+        CURRENT_HASH = dirhash(directory, 'md5', ignore_hidden=True,
+                               # changing these exclusions can cause dirhas to skip EVERYTHING
+                               excluded_files=[".coverage", "lint.txt"],
+                               excluded_extensions=[".pyc"]
+                               )
 
+        print("Searching " + self.state_file_name)
         if os.path.isfile(self.state_file_name):
             with open(self.state_file_name, "r+") as file:
                 last_hash = file.read()
@@ -59,11 +82,13 @@ class BuildState(object):
                     file.write(CURRENT_HASH)
                     file.truncate()
                     return True
-        else:
-            with open(self.state_file_name, "w") as file:
-                file.write(CURRENT_HASH)
-                return True
-        return False
+                else:
+                    return False
+
+        # no previous file, by definition not the same.
+        with open(self.state_file_name, "w") as file:
+            file.write(CURRENT_HASH)
+            return True
 
 
 def oh_never_mind(what):
@@ -71,17 +96,25 @@ def oh_never_mind(what):
     state.oh_never_mind()
 
 
-def has_source_code_tree_changed(what):
-    state = BuildState(what, PROJECT_NAME)
+def has_source_code_tree_changed(task_name, expect_file=None):
+    if expect_file:
+        if os.path.isdir(expect_file) and not os.listdir(expect_file):
+            os.path.dirname(expect_file)
+            # output folder empty
+            return True
+        if not os.path.isfile(expect_file):
+            # output file gone
+            return True
+    state = BuildState(task_name, os.path.join(SRC, PROJECT_NAME))
     return state.has_source_code_tree_changed()
 
 
-def skip_if_no_change(name):
+def skip_if_no_change(name, expect_files=None):
     # https://stackoverflow.com/questions/5929107/decorators-with-parameters
     def real_decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            if not has_source_code_tree_changed(name):
+            if not has_source_code_tree_changed(name, expect_files):
                 print("Nothing changed, won't re-" + name)
                 return
             try:
@@ -97,19 +130,21 @@ def skip_if_no_change(name):
 
 def execute_with_environment(command, env):
     # Python 2 code! Python 3 uses context managers.
-    shell_process =subprocess.Popen(command.strip().replace("  ", " ").split(" "), env=env)
+    shell_process = subprocess.Popen(command.strip().replace("  ", " ").split(" "), env=env)
     value = shell_process.communicate()  # wait
     if shell_process.returncode != 0:
-        print("Last command failed: ")
-        print(command)
         print("Didn't get a zero return code, got : {0}".format(shell_process.returncode))
         exit(-1)
-        return
         # raise TypeError("Didn't get a zero return code, got : {0}".format(shell_process.returncode))
     return value
 
 
-def execute_get_text(command):
+def execute_get_text(command):  # type: (str) ->str
+    """
+    Execute shell command and return stdout txt
+    :param command:
+    :return:
+    """
     try:
         completed = subprocess.run(
             command,
@@ -121,3 +156,36 @@ def execute_get_text(command):
         raise
     else:
         return completed.stdout.decode('utf-8')
+
+
+def get_packages():
+    packages = []
+    cp = subprocess.run(("fury list --as={0}".format(GEM_FURY).split(" ")),
+                        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                        shell=False, check=True)
+    package_text = cp.stdout.split("\n")
+    found = False
+    for line in package_text:
+        if "(" in line and ")" in line:
+            if PROJECT_NAME in line:
+                found = True
+            packages.append(line)
+    return packages, found
+
+
+def get_versions():
+    versions = []
+    cp = subprocess.run(("fury versions {0} --as={0}".format(GEM_FURY).format(PROJECT_NAME).split(" ")),
+                        stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                        shell=False, check=True)
+    package_text = cp.stdout.decode().split("\n")
+    found = False
+    for line in package_text:
+        if "." in line:
+            try:
+                version = Version(line)
+                versions.append(version)
+            except ValueError:
+                pass
+    print(versions)
+    return versions
