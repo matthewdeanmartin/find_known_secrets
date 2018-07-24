@@ -18,7 +18,7 @@ jiggle-version>=1.0.27
 mccabe==0.6.1
 mypy==0.620; python_version >= '3.4'
 nose==1.3.7
-pandoc
+pandoc==1.0.2
 pip-check
 pipenv-to-requirements
 prospector[with-everything]
