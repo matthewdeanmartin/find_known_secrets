@@ -39,6 +39,6 @@ semantic-version
 sphinx
 sphinx-rtd-theme
 tabulate
-teamcity-messages
+teamcity-messages==1.21
 twine
 vulture
