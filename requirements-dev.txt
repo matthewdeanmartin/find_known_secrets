@@ -27,7 +27,7 @@ pycycle
 pydocstyle
 pyflakes
 pylint
-pynt
+pynt==0.8.2
 pynt-contrib
 pytest-cov
 pytest-sugar
