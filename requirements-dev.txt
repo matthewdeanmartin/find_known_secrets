@@ -21,7 +21,7 @@ nose
 pandoc
 pip-check
 pipenv-to-requirements
-prospector[with-everything]
+prospector[with-everything]==1.0
 py-find-injection
 pycycle
 pydocstyle
