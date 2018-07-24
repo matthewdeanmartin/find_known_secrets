@@ -38,7 +38,7 @@ safety
 semantic-version
 sphinx
 sphinx-rtd-theme
-tabulate
+tabulate==0.8.2
 teamcity-messages
 twine
 vulture
