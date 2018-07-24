@@ -28,7 +28,7 @@ pydocstyle==2.1.1
 pyflakes==2.0.0
 pylint==2.0.1
 pynt==0.8.2
-pynt-contrib
+pynt-contrib==0.2.0
 pytest-cov
 pytest-sugar
 python-coveralls
