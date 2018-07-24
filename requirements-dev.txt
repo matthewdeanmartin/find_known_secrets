@@ -39,5 +39,5 @@ semantic-version==2.6.0
 sphinx==1.7.6
 sphinx-rtd-theme==0.4.0
 teamcity-messages==1.21
-twine
+twine==1.11.0
 vulture
