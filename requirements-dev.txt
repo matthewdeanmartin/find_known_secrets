@@ -40,4 +40,4 @@ sphinx==1.7.6
 sphinx-rtd-theme==0.4.0
 teamcity-messages==1.21
 twine==1.11.0
-vulture
+vulture==0.28
