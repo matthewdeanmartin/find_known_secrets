@@ -37,7 +37,7 @@ radon
 safety
 semantic-version
 sphinx
-sphinx-rtd-theme
+sphinx-rtd-theme==0.4.0
 tabulate
 teamcity-messages
 twine
