@@ -33,7 +33,7 @@ pytest-cov
 pytest-sugar
 python-coveralls
 python-taint
-radon
+radon==2.2.0
 safety
 semantic-version
 sphinx
