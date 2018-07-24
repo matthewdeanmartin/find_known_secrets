@@ -37,7 +37,7 @@ radon==2.2.0
 safety==1.8.3
 semantic-version==2.6.0
 sphinx==1.7.6
-sphinx-rtd-theme
+sphinx-rtd-theme==0.4.0
 teamcity-messages
 twine
 vulture
