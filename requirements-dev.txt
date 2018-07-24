@@ -13,7 +13,7 @@
 bandit==1.4.0
 black==18.6b3; python_version >= '3.6'
 checksumdir==1.1.4
-detect-secrets
+detect-secrets==0.9.1
 jiggle-version>=1.0.27
 mccabe
 mypy ; python_version >= '3.4'
