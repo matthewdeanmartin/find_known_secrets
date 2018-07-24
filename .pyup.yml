@@ -2,3 +2,11 @@
 # see https://pyup.io/docs/configuration/ for all available options
 
 update: false
+requirements:
+  - requirements.txt:
+      # update all dependencies and pin them
+      update: fals
+      pin: false
+  - requirements-dev.txt:
+      # don't update dependencies, use global 'pin' default
+      update: false

@@ -306,9 +306,10 @@ def mypy():
             else:
                 lint_file.writelines([line + "\n"])
 
-    num_lines = sum(1 for line in open(mypy_file))
-    if num_lines > 2:
-        print("Too many lines of mypy : {0}".format(num_lines))
+    num_lines = sum(1 for line in open(mypy_file) if line.strip())
+    max_lines = 2
+    if num_lines > max_lines:
+        print("Too many lines of mypy : {0}, max {1}".format(num_lines, max_lines))
         exit(-1)
         return
         # raise TypeError("Too many lines of mypy : {0}".format(num_lines))
