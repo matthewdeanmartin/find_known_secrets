@@ -30,7 +30,7 @@ pylint==2.0.1
 pynt==0.8.2
 pynt-contrib==0.2.0
 pytest-cov==2.5.1
-pytest-sugar
+pytest-sugar==0.9.1
 python-coveralls
 python-taint
 radon
