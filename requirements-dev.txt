@@ -40,5 +40,5 @@ sphinx
 sphinx-rtd-theme
 tabulate
 teamcity-messages
-twine
+twine==1.11.0
 vulture
