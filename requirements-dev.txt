@@ -10,7 +10,7 @@
 # `Pipfile.lock` and then regenerate `requirements*.txt`.
 ################################################################################
 
-bandit
+bandit==1.4.0
 black ; python_version >= '3.6'
 checksumdir
 detect-secrets
