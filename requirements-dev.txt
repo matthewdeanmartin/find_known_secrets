@@ -23,7 +23,7 @@ pip-check
 pipenv-to-requirements
 prospector[with-everything]
 py-find-injection
-pycycle
+pycycle==0.0.8
 pydocstyle
 pyflakes
 pylint
