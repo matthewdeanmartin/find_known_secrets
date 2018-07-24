@@ -19,7 +19,7 @@ mccabe
 mypy ; python_version >= '3.4'
 nose
 pandoc
-pip-check
+pip-check==2.3.3
 pipenv-to-requirements
 prospector[with-everything]
 py-find-injection
