@@ -19,7 +19,7 @@ mccabe==0.6.1
 mypy==0.620; python_version >= '3.4'
 nose==1.3.7
 pandoc==1.0.2
-pip-check
+pip-check==2.3.3
 pipenv-to-requirements
 prospector[with-everything]
 py-find-injection
