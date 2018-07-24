@@ -36,7 +36,7 @@ python-taint
 radon
 safety
 semantic-version
-sphinx
+sphinx==1.7.6
 sphinx-rtd-theme
 tabulate
 teamcity-messages
