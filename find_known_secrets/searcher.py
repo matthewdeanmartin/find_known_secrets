@@ -11,97 +11,120 @@
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-
+import tabulate
 import os
-from typing import List
+from typing import List, Tuple, Optional, Set, Dict
 
 _ = List
 
-files = ["~/.aws/credentials"]
+try:
+    import configparser
+except ImportError:
+    # Python 2.x fallback
+    import ConfigParser as configparser
 
-# TODO: merge in more .ini files
+import sys
 
-false_positives = ["localhost", "admin", "0.0.0.0"]
+if sys.version_info.major == 3:
+    unicode = str
 
-skip_files = []  # type: List[str]
-# TODO: merge in an ignore file
+class Searcher(object):
+    def __init__(self, source):  # type: (str) -> None
+        self.source = source
+        self.files = ["~/.aws/credentials"]
 
-secrets = []  # type: List[str]
+        # TODO: merge in more .ini files
 
+        self.false_positives = ["localhost", "admin", "0.0.0.0"]
 
-def append_known_secrets(source, debug=False):  # type: (str, bool) -> None
-    """
-    Read key-value pair files with secrets. For example, .conf and .ini files.
-    :return:
-    """
-    for file_name in files:
-        if not os.path.isfile(file_name):
-            print("Don't have " + file_name + ", won't use.")
-            continue
-        with open(os.path.expanduser(file_name), "r") as file:
-            for line in file:
-                if line and "=" in line:
-                    possible = line.split("=")[1].strip(" \"'\n")
-                    if len(possible) > 4 and possible not in false_positives:
-                        secrets.append(possible)
+        self.skip_files = []  # type: List[str]
+        # TODO: merge in an ignore file
 
-    print(secrets)
+        self.secrets = []  # type: List[str]
 
+        self.found = {}  # type: Dict[str, List[Tuple[str,str]]]
 
-def search_known_secrets(source, debug=False):  # type: (str, bool) -> None
-    """
-    Search a path for known secrets, outputing text and file when found
-    :return:
-    """
-    count = 0
-    here = os.path.abspath(source)
-    # python 3 only!
-    # for file in glob.glob(here + "/" + "**/*.*", recursive=True):
-
-    # py 2
-    matches = []
-    for root, dirnames, filenames in os.walk(here + "/"):
-        for filename in filenames:
-            matches.append(os.path.join(root, filename))
-
-    for file in matches:
-        print(file)
-        if os.path.isdir(file):
-            continue
-        with open(file) as f:
-            try:
-                contents = f.read()
-            except UnicodeDecodeError:
-                # print("Can't read "+ file)
+    def append_known_secrets(self):  # type: () -> None
+        """
+        Read key-value pair files with secrets. For example, .conf and .ini files.
+        :return:
+        """
+        for file_name in self.files:
+            if "~" in file_name:
+                file_name = os.path.expanduser(file_name)
+            if not os.path.isfile(file_name):
+                print("Don't have " + file_name + ", won't use.")
                 continue
-            except Exception as e:
-                print(file)
-                raise
-        for secret in secrets:
-            if secret in contents:
-                print(file)
-                print("-----------")
-                for line in contents.split("\n"):
-                    if secret in line:
-                        print(secret, line)
-                        count += 1
+            with open(os.path.expanduser(file_name), "r") as file:
+                for line in file:
+                    if line and "=" in line:
+                        possible = line.split("=")[1].strip(" \"'\n")
+                        if len(possible) > 4 and possible not in self.false_positives:
+                            self.secrets.append(possible)
 
+    def search_known_secrets(self):  # type: () -> None
+        """
+        Search a path for known secrets, outputing text and file when found
+        :return:
+        """
+        count = 0
+        here = os.path.abspath(self.source)
+        # python 3 only!
+        # for file in glob.glob(here + "/" + "**/*.*", recursive=True):
+
+        # py 2
+        matches = []
+        for root, dirnames, filenames in os.walk(here + "/"):
+            for filename in filenames:
+                matches.append(os.path.join(root, filename))
+
+        for file in matches:
+            if os.path.isdir(file):
+                continue
+            with open(file) as f:
+                try:
+                    contents = f.read()
+                except UnicodeDecodeError:
+                    # print("Can't read "+ file)
+                    continue
+                except Exception as e:
+                    print(e)
+                    print(file)
+                    raise
+            for secret in self.secrets:
+                if secret in contents:
+                    print(file)
+                    print("-----------")
+                    for line in contents.split("\n"):
+                        if secret in line:
+                            self.found.setdefault(file, []).append((secret, line))
+                            count += 1
+
+    def report(self):  # type: ()-> None
+        result = tabulate.tabulate(tabular_data=self.found, headers=("File", "Secret"))
+        count = len(self.found)
         if count > 0:
             print("Found {0} secrets. Failing this run.".format(count))
+            for key, values in self.found.items():
+                print("File: " + unicode(key))
+                for value in values:
+                    print(value)
+            exit(-1)
         else:
             print(
                 "No known secrets found. Consider trying out detect-secrets and git-secrets, too."
             )
 
-
-def go(source, debug=False):  # type: (str, bool) -> None
-    """
-    Entry point method
-    :return:
-    """
-    append_known_secrets(source, debug)
-    search_known_secrets(source, debug)
+    def go(self):  # type: () -> None
+        """
+        Entry point method
+        :return:
+        """
+        self.append_known_secrets()
+        self.search_known_secrets()
+        self.report()
 
 
 if __name__ == "__main__":
-    go("", True)
+    searcher = Searcher("")
+    searcher.go()
