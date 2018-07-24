@@ -24,7 +24,7 @@ pipenv-to-requirements
 prospector[with-everything]
 py-find-injection
 pycycle
-pydocstyle
+pydocstyle==2.1.1
 pyflakes
 pylint
 pynt
