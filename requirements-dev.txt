@@ -25,7 +25,7 @@ prospector[with-everything]==1.0
 py-find-injection==0.1.1
 pycycle==0.0.8
 pydocstyle==2.1.1
-pyflakes
+pyflakes==2.0.0
 pylint
 pynt
 pynt-contrib
