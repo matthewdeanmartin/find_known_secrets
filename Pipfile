@@ -38,6 +38,7 @@ jiggle-version = ">=1.0.27"
 safety = "*"
 sphinx-rtd-theme = "*"
 python-coveralls = "*"
+tabulate = "*"
 
 [requires]
 python_version = "3.6"
