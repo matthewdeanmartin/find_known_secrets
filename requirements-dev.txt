@@ -28,7 +28,7 @@ pydocstyle
 pyflakes
 pylint
 pynt
-pynt-contrib
+pynt-contrib==0.2.0
 pytest-cov
 pytest-sugar
 python-coveralls
