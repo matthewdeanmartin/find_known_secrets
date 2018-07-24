@@ -22,7 +22,7 @@ pandoc
 pip-check
 pipenv-to-requirements
 prospector[with-everything]
-py-find-injection
+py-find-injection==0.1.1
 pycycle
 pydocstyle
 pyflakes
