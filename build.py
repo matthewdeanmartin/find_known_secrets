@@ -19,7 +19,7 @@ from pyntcontrib import execute, safe_cd
 from semantic_version import Version
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-from build_utils import check_is_aws, skip_if_no_change, execute_with_environment
+from build_utils import check_is_aws, skip_if_no_change, execute_with_environment, get_versions, get_packages
 
 
 PROJECT_NAME = "find_known_secrets"
@@ -191,7 +191,6 @@ def lint():
             print("Fatal lint errors : {0}".format(fatal_errors))
             exit(-1)
             return
-            #raise TypeError("Fatal lint errors : {0}".format(fatal_errors))
 
         cutoff = 69
         num_lines = sum(1 for line in open(lint_output_file_name)
@@ -202,13 +201,11 @@ def lint():
             print("Too many lines of lint : {0}".format(num_lines))
             exit(-1)
             return
-            # raise TypeError("Too many lines of lint : {0}".format(num_lines))
 
 
 @task(lint)
 @skip_if_no_change("nose_tests")
 def nose_tests():
-    # with safe_cd(SRC):
     if IS_DJANGO:
         command = "{0} manage.py test -v 2".format(PYTHON)
         # We'd expect this to be MAC or a build server.
@@ -286,7 +283,6 @@ def mypy():
         execute("rm", mypy_file)
     command = "{0} mypy {1} --ignore-missing-imports --strict".format(PIPENV, PROJECT_NAME).strip()
     bash_process = subprocess.Popen(command.split(" "),
-                                    # shell=True,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE
                                     )
@@ -312,8 +308,6 @@ def mypy():
         print("Too many lines of mypy : {0}, max {1}".format(num_lines, max_lines))
         exit(-1)
         return
-        # raise TypeError("Too many lines of mypy : {0}".format(num_lines))
-
 
 @task()
 def pin_dependencies():
@@ -360,7 +354,7 @@ def check_setup_py():
             execute(*("{0} {1} setup.py check -r -s".format(PIPENV, PYTHON).strip().split(" ")))
 
 @task(formatting, mypy, detect_secrets, git_secrets, check_setup_py, nose_tests, coverage, compile, dead_code, lint,
-      compile_mark_down, pin_dependencies, jiggle_version)  # docs ... later
+      compile_mark_down, pin_dependencies, jiggle_version)
 @skip_if_no_change("package")
 def package():
     with safe_cd(SRC):
@@ -373,49 +367,18 @@ def package():
 
 @task(package)
 def gemfury():
+    """
+    Upload to gemfury
+    """
     # fury login
-    """
-    fury push dist/*.gz --as=YOUR_ACCT
-    fury push dist/*.whl --as=YOUR_ACCT
-    """
+    #fury push dist/*.gz --as=YOUR_ACCT
+    #fury push dist/*.whl --as=YOUR_ACCT
+
     cp = subprocess.run(("fury login --as={0}".format(GEM_FURY).split(" ")),
                         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                         shell=False, check=True)
     print(cp.stdout)
 
-    # print(cp.stderr)
-    # print(cp.returncode)
-
-    def get_packages():
-        packages = []
-        cp = subprocess.run(("fury list --as={0}".format(GEM_FURY).split(" ")),
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            shell=False, check=True)
-        package_text = cp.stdout.split("\n")
-        found = False
-        for line in package_text:
-            if "(" in line and ")" in line:
-                if PROJECT_NAME in line:
-                    found = True
-                packages.append(line)
-        return package, found
-
-    def get_versions():
-        versions = []
-        cp = subprocess.run(("fury versions {0} --as={0}".format(GEM_FURY).format(PROJECT_NAME).split(" ")),
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            shell=False, check=True)
-        package_text = cp.stdout.decode().split("\n")
-        found = False
-        for line in package_text:
-            if "." in line in line:
-                try:
-                    version = Version(line)
-                    versions.append(version)
-                except ValueError:
-                    pass
-        print(versions)
-        return versions
 
     about = {}
     with open(os.path.join(SRC, PROJECT_NAME, "__version__.py")) as f:
