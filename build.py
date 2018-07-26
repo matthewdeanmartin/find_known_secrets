@@ -118,7 +118,7 @@ def detect_secrets():
     # use
     # blah blah = "foo"     # pragma: whitelist secret
     # to ignore a false posites
-    errors_file = "detect-secrets-results.txt"
+    errors_file = "detect-secrets-results.json"
 
     command = "detect-secrets --scan --base64-limit 4 --exclude .idea|.js|.min.js|.html|.xsd|" \
               "lock.json|synced_folders|.scss|" \
@@ -374,6 +374,14 @@ def pre_commit_hook():
     # Run checks that are likely to have FATAL errors, not just sloppy coding.
     pass
 
+# Don't break the build, but don't change source tree either.
+@task(mypy, detect_secrets, git_secrets, nose_tests, coverage, check_setup_py, compile, dead_code)
+@skip_if_no_change("package")
+def pre_push_hook():
+    # Don't format or update version
+    # Don't do slow stuff- discourages frequent check in
+    # Run checks that are likely to have FATAL errors, not just sloppy coding.
+    pass
 
 @task(package)
 def gemfury():

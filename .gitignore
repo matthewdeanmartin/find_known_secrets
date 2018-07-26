@@ -105,6 +105,7 @@ venv.bak/
 
 # noise
 detect-secrets-results.txt
+detect-secrets-results.json
 lint.txt
 mypy_errors.txt
 coverage
