@@ -13,4 +13,3 @@
 colorama
 docopt
 tabulate
-termcolor

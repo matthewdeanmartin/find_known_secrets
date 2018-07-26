@@ -364,6 +364,13 @@ def package():
     with safe_cd(SRC):
         execute(PYTHON, "setup.py", "sdist", "--formats=gztar,zip")
 
+@task(formatting, mypy, detect_secrets, git_secrets, check_setup_py, nose_tests, coverage, compile, dead_code, lint,
+      compile_mark_down, pin_dependencies)
+@skip_if_no_change("package")
+def pre_commit_hook():
+    # can't jiggle version or we will have to check in again!
+    pass
+
 
 @task(package)
 def gemfury():
