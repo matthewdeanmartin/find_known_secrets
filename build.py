@@ -19,7 +19,7 @@ from pyntcontrib import execute, safe_cd
 from semantic_version import Version
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-from build_utils import check_is_aws, skip_if_no_change, execute_with_environment, get_versions, get_packages
+from build_utils import check_is_aws, skip_if_no_change, execute_with_environment, get_versions, get_packages, execute_get_text
 
 
 PROJECT_NAME = "find_known_secrets"
@@ -91,7 +91,20 @@ def formatting():
             return
         command = "{0} black {1}".format(PIPENV, PROJECT_NAME).strip()
         print(command)
-        execute(*(command.split(" ")))
+        result = execute_get_text(command)
+        assert result
+        changed =[]
+        for line in result.split("\n"):
+            if "reformatted " in line:
+                file = line[len("reformatted "):].strip()
+                changed.append(file)
+        for change in changed:
+            command ="git add {0}".format(change)
+            print(command)
+            execute(*(command.split(" ")))
+
+
+
 
 
 @task(clean)
