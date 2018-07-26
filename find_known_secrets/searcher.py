@@ -103,17 +103,17 @@ class Searcher(object):
                             count += 1
 
     def report(self):  # type: ()-> None
-
+        current_directory = os.getcwd()
         count = len(self.found)
         if count > 0:
             print("Found {0} secrets. Failing this run.".format(count))
 
             data = [
-                (key, tabulate.tabulate(tabular_data=value, tablefmt="plain"))
+                (key.replace(current_directory, ""), tabulate.tabulate(tabular_data=value, tablefmt="plain"))
                 for key, value in self.found.items()
             ]
             result = tabulate.tabulate(
-                tabular_data=data, headers=("File", "Secret"), tablefmt="grid"
+                tabular_data=data, headers=("File", "Secret Found - Secret Text"), tablefmt="grid"
             )
             print(result)
 
