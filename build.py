@@ -138,16 +138,16 @@ def detect_secrets():
     with open(errors_file) as f:
         try:
             data = json.load(f)
+            if data["results"]:
+                for result in data["results"]:
+                    print(result)
+                print("detect-secrets has discovered high entropy strings, possibly passwords?")
+                exit(-1)
+                return
+                # raise TypeError("detect-secrets has discovered high entropy strings, possibly passwords?")
         except Exception:
             print("Can't read json")
 
-    if data["results"]:
-        for result in data["results"]:
-            print(result)
-        print("detect-secrets has discovered high entropy strings, possibly passwords?")
-        exit(-1)
-        return
-        # raise TypeError("detect-secrets has discovered high entropy strings, possibly passwords?")
 
 
 

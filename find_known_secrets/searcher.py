@@ -15,8 +15,8 @@ import tabulate
 import os
 from typing import List, Tuple, Optional, Set, Dict
 
-from colorama import init
-from termcolor import colored, cprint
+
+from colorama import init, Fore, Back, Style
 
 _ = List
 
@@ -64,9 +64,11 @@ class Searcher(object):
             if "~" in file_name:
                 file_name = os.path.expanduser(file_name)
             if not os.path.isfile(file_name):
-                cprint(
+                print(
                     "Don't have "
-                    + colored(file_name, "black", "on_yellow")
+                    + Back.BLACK
+                    + Fore.YELLOW
+                    + file_name
                     + ", won't use."
                 )
                 continue
@@ -113,7 +115,11 @@ class Searcher(object):
                                 (
                                     secret,
                                     line.replace(
-                                        secret, colored(secret, "red", "on_yellow")
+                                        secret,
+                                        Fore.RED
+                                        + Back.YELLOW
+                                        + secret
+                                        + Style.RESET_ALL,
                                     ),
                                 )
                             )
@@ -123,7 +129,7 @@ class Searcher(object):
         current_directory = os.getcwd()
         count = len(self.found)
         if count > 0:
-            cprint("Found {0} secrets. Failing this run.".format(count), "red")
+            print(Fore.RED + "Found {0} secrets. Failing this run.".format(count))
 
             data = [
                 (
