@@ -29,7 +29,6 @@ from find_known_secrets.__version__ import __version__
 logger = logging.getLogger(__name__)
 
 
-
 def go():  # type: () -> None
     """
     Default scenario
