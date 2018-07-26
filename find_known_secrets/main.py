@@ -29,6 +29,7 @@ from find_known_secrets.__version__ import __version__
 logger = logging.getLogger(__name__)
 
 
+
 def go():  # type: () -> None
     """
     Default scenario
@@ -41,10 +42,11 @@ def process_docopts():  # type: ()->None
     """
     Take care of command line options
     """
+
     arguments = docopt(__doc__, version="Find Known Secrets {0}".format(__version__))
 
     logger.debug(arguments)
-    print(arguments)
+    # print(arguments)
     if arguments["here"]:
         # all default
         go()

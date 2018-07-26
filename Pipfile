@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 docopt = "*"
 tabulate = "*"
+colorama = "*"
+termcolor = "*"
 
 [dev-packages]
 black = {markers="python_version >= '3.6'"}

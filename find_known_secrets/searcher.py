@@ -15,6 +15,9 @@ import tabulate
 import os
 from typing import List, Tuple, Optional, Set, Dict
 
+from colorama import init
+from termcolor import colored, cprint
+
 _ = List
 
 try:
@@ -29,6 +32,7 @@ if sys.version_info.major == 3:
     unicode = str
 
 
+init(autoreset=True) # cross plat now
 class Searcher(object):
     def __init__(self, source, files=None):  # type: (str,Optional[str]) -> None
         self.source = source
@@ -58,7 +62,7 @@ class Searcher(object):
             if "~" in file_name:
                 file_name = os.path.expanduser(file_name)
             if not os.path.isfile(file_name):
-                print("Don't have " + file_name + ", won't use.")
+                cprint("Don't have " + colored(file_name, "black", "on_yellow")  + ", won't use.")
                 continue
             with open(os.path.expanduser(file_name), "r") as file:
                 for line in file:
@@ -99,14 +103,14 @@ class Searcher(object):
                 if secret in contents:
                     for line in contents.split("\n"):
                         if secret in line:
-                            self.found.setdefault(file, []).append((secret, line))
+                            self.found.setdefault(file, []).append((secret, line.replace(secret, colored(secret, "red", "on_yellow"))))
                             count += 1
 
     def report(self):  # type: ()-> None
         current_directory = os.getcwd()
         count = len(self.found)
         if count > 0:
-            print("Found {0} secrets. Failing this run.".format(count))
+            cprint("Found {0} secrets. Failing this run.".format(count), "red")
 
             data = [
                 (key.replace(current_directory, ""), tabulate.tabulate(tabular_data=value, tablefmt="plain"))
