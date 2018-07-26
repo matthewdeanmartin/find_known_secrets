@@ -149,8 +149,6 @@ def detect_secrets():
             print("Can't read json")
 
 
-
-
 @task(compile, formatting, prospector)
 @skip_if_no_change("lint")
 def lint():
@@ -203,7 +201,7 @@ def lint():
             return
 
 
-@task(lint)
+@task()
 @skip_if_no_change("nose_tests")
 def nose_tests():
     if IS_DJANGO:
