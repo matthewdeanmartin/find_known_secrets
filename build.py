@@ -108,13 +108,13 @@ def formatting():
 
 
 @task(clean)
-@skip_if_no_change("compile")
-def compile():
+@skip_if_no_change("compile_py")
+def compile_py():
     with safe_cd(SRC):
         execute(PYTHON, "-m", "compileall", PROJECT_NAME)
 
 
-@task(compile)
+@task(compile_py)
 @skip_if_no_change("prospector")
 def prospector():
     with safe_cd(SRC):
@@ -162,7 +162,7 @@ def detect_secrets():
             print("Can't read json")
 
 
-@task(compile, formatting, prospector)
+@task(compile_py, formatting, prospector)
 @skip_if_no_change("lint")
 def lint():
     with safe_cd(SRC):
@@ -364,7 +364,7 @@ def check_setup_py():
         else:
             execute(*("{0} {1} setup.py check -r -s".format(PIPENV, PYTHON).strip().split(" ")))
 
-@task(formatting, mypy, detect_secrets, git_secrets, check_setup_py, nose_tests, coverage, compile, dead_code, lint,
+@task(formatting, mypy, detect_secrets, git_secrets, check_setup_py, nose_tests, coverage, compile_py, dead_code, lint,
       compile_mark_down, pin_dependencies, jiggle_version)
 @skip_if_no_change("package")
 def package():
@@ -377,7 +377,7 @@ def package():
 
 
 # FAST. FATAL ERRORS. DON'T CHANGE THINGS THAT CHECK IN
-@task(mypy, detect_secrets, git_secrets, check_setup_py, compile, dead_code)
+@task(mypy, detect_secrets, git_secrets, check_setup_py, compile_py, dead_code)
 @skip_if_no_change("package")
 def pre_commit_hook():
     # Don't format or update version
@@ -386,7 +386,7 @@ def pre_commit_hook():
     pass
 
 # Don't break the build, but don't change source tree either.
-@task(mypy, detect_secrets, git_secrets, nose_tests, coverage, check_setup_py, compile, dead_code)
+@task(mypy, detect_secrets, git_secrets, nose_tests, coverage, check_setup_py, compile_py, dead_code)
 @skip_if_no_change("package")
 def pre_push_hook():
     # Don't format or update version
