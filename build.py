@@ -94,14 +94,14 @@ def formatting():
         execute(*(command.split(" ")))
 
 
-@task(clean, formatting)
+@task(clean)
 @skip_if_no_change("compile")
 def compile():
     with safe_cd(SRC):
         execute(PYTHON, "-m", "compileall", PROJECT_NAME)
 
 
-@task(formatting, compile)
+@task(compile)
 @skip_if_no_change("prospector")
 def prospector():
     with safe_cd(SRC):
