@@ -7,33 +7,22 @@
   currently set in the environment
 
 """
-from __future__ import division, print_function, unicode_literals
-
+import glob
 import os
-from typing import Dict, List, Optional, Set, Tuple
+import sys
+from typing import Optional
 
 import tabulate
 from colorama import Back, Fore, Style, init
 
-_ = List
-
-try:
-    import configparser
-except ImportError:
-    # Python 2.x fallback
-    import ConfigParser as configparser
-
-import sys
-
-if sys.version_info.major == 3:
-    unicode = str
-
-
 init(autoreset=True)  # cross plat now
 
 
-class Searcher(object):
-    def __init__(self, source, files=None):  # type: (str,Optional[str]) -> None
+class Searcher:
+    """Look for possible secrets from common ini, config files"""
+
+    def __init__(self, source: str, files: Optional[str] = None) -> None:
+        """Set up initial state"""
         self.source = source
 
         self.files = ["~/.aws/credentials"]
@@ -45,17 +34,16 @@ class Searcher(object):
 
         self.false_positives = ["localhost", "admin", "0.0.0.0"]
 
-        self.skip_files = []  # type: List[str]
+        self.skip_files: list[str] = []
         # TODO: merge in an ignore file
 
-        self.secrets = []  # type: List[str]
+        self.secrets: list[str] = []
 
-        self.found = {}  # type: Dict[str, List[Tuple[str,str]]]
+        self.found: dict[str, list[tuple[str, str]]] = {}
 
-    def append_known_secrets(self):  # type: () -> None
+    def append_known_secrets(self) -> None:
         """
         Read key-value pair files with secrets. For example, .conf and .ini files.
-        :return:
         """
         for file_name in self.files:
             if "~" in file_name:
@@ -63,39 +51,30 @@ class Searcher(object):
             if not os.path.isfile(file_name):
                 print("Don't have " + Back.BLACK + Fore.YELLOW + file_name + ", won't use.")
                 continue
-            with open(os.path.expanduser(file_name), "r") as file:
+            with open(os.path.expanduser(file_name), encoding="utf-8") as file:
                 for line in file:
                     if line and "=" in line:
                         possible = line.split("=")[1].strip(" \"'\n")
                         if len(possible) > 4 and possible not in self.false_positives:
                             self.secrets.append(possible)
 
-    def search_known_secrets(self):  # type: () -> None
+    def search_known_secrets(self) -> None:
         """
-        Search a path for known secrets, outputing text and file when found
-        :return:
+        Search a path for known secrets, outputting text and file when found
         """
         count = 0
         here = os.path.abspath(self.source)
-        # python 3 only!
-        # for file in glob.glob(here + "/" + "**/*.*", recursive=True):
 
-        # py 2
-        matches = []
-        for root, dirnames, filenames in os.walk(here + "/"):
-            for filename in filenames:
-                matches.append(os.path.join(root, filename))
-
-        for file in matches:
+        for file in glob.glob(here + "/" + "**/*.*", recursive=True):
             if os.path.isdir(file):
                 continue
-            with open(file) as f:
+            with open(file, encoding="utf-8") as file_handle:
                 try:
-                    contents = f.read()
+                    contents = file_handle.read()
                 except UnicodeDecodeError:
                     continue
-                except Exception as e:
-                    print(e)
+                except Exception as exception:
+                    print(exception)
                     print(file)
                     raise
             for secret in self.secrets:
@@ -113,11 +92,12 @@ class Searcher(object):
                             )
                             count += 1
 
-    def report(self):  # type: ()-> None
+    def report(self) -> None:
+        """Summarize findings"""
         current_directory = os.getcwd()
         count = len(self.found)
         if count > 0:
-            print(Fore.RED + "Found {0} secrets. Failing this run.".format(count))
+            print(Fore.RED + f"Found {count} secrets. Failing this run.")
 
             data = [
                 (
@@ -133,14 +113,13 @@ class Searcher(object):
             )
             print(result)
 
-            exit(-1)
+            sys.exit(-1)
         else:
             print("No known secrets found. Consider trying out detect-secrets and git-secrets, too.")
 
-    def go(self):  # type: () -> None
+    def run(self) -> None:
         """
         Entry point method
-        :return:
         """
         self.append_known_secrets()
         self.search_known_secrets()
@@ -149,4 +128,4 @@ class Searcher(object):
 
 if __name__ == "__main__":
     searcher = Searcher("")
-    searcher.go()
+    searcher.run()

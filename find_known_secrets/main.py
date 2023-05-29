@@ -14,7 +14,6 @@ Options:
   --version           Show version.
   --debug=<debug>     Show diagnostic info [default: False]
 """
-from __future__ import division, print_function, unicode_literals
 
 import logging
 
@@ -26,32 +25,31 @@ from find_known_secrets.searcher import Searcher
 logger = logging.getLogger(__name__)
 
 
-def go():  # type: () -> None
+def run() -> None:
     """
     Default scenario
     """
     searcher = Searcher(source="")
-    searcher.go()
+    searcher.run()
 
 
-def process_docopts():  # type: ()->None
+def process_docopts() -> None:
     """
     Take care of command line options
     """
 
-    arguments = docopt(__doc__, version="Find Known Secrets {0}".format(__version__))
+    arguments = docopt(__doc__, version=f"Find Known Secrets {__version__}")
 
     logger.debug(arguments)
-    # print(arguments)
     if arguments["here"]:
         # all default
-        go()
+        run()
     else:
         # user config
         files = arguments["--secrets"]
 
         searcher = Searcher(source=arguments["--source"], files=files)
-        searcher.go()
+        searcher.run()
 
 
 if __name__ == "__main__":

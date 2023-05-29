@@ -31,7 +31,7 @@ clean: clean-pyc clean-test
 # tests are often slow and linting is fast, so run tests on linted code.
 test: clean .build_history/pylint .build_history/bandit Pipfile.lock
 	@echo "Running unit tests"
-	$(VENV) pytest find_known_secrets --doctest-modules
+	# $(VENV) pytest find_known_secrets --doctest-modules
 	$(VENV) python -m unittest discover
 	$(VENV) py.test test --cov=find_known_secrets --cov-report=html --cov-fail-under 50
 

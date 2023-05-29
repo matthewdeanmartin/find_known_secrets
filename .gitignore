@@ -114,3 +114,4 @@ coverage
 .idea
 
 .build_history/
+/.ruff_cache/

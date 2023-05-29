@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 basic tests
 """
@@ -23,7 +22,7 @@ def test_this():
     here = os.path.abspath(os.path.dirname(__file__))
 
     searcher = Searcher(here + "/../")
-    searcher.go()
+    searcher.run()
 
 
 def test_docops():

@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 Tests
 """
@@ -30,7 +29,7 @@ def execute_get_text(command):
 def test_found_custom_secrets():
     try:
         os.chdir(SRC)
-        result = execute_get_text("python3 -m find_known_secrets --secrets=test/secrets.ini")
+        result = execute_get_text("python -m find_known_secrets --secrets=test/secrets.ini")
         print(result)
     except subprocess.CalledProcessError as cpe:
         assert "Failing this run" in str(cpe.stdout)
