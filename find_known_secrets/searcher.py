@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 3 ways to find secrets I know of:
 
@@ -8,15 +7,13 @@
   currently set in the environment
 
 """
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-import tabulate
+from __future__ import division, print_function, unicode_literals
+
 import os
-from typing import List, Tuple, Optional, Set, Dict
+from typing import Dict, List, Optional, Set, Tuple
 
-
-from colorama import init, Fore, Back, Style
+import tabulate
+from colorama import Back, Fore, Style, init
 
 _ = List
 
@@ -64,13 +61,7 @@ class Searcher(object):
             if "~" in file_name:
                 file_name = os.path.expanduser(file_name)
             if not os.path.isfile(file_name):
-                print(
-                    "Don't have "
-                    + Back.BLACK
-                    + Fore.YELLOW
-                    + file_name
-                    + ", won't use."
-                )
+                print("Don't have " + Back.BLACK + Fore.YELLOW + file_name + ", won't use.")
                 continue
             with open(os.path.expanduser(file_name), "r") as file:
                 for line in file:
@@ -116,10 +107,7 @@ class Searcher(object):
                                     secret,
                                     line.replace(
                                         secret,
-                                        Fore.RED
-                                        + Back.YELLOW
-                                        + secret
-                                        + Style.RESET_ALL,
+                                        Fore.RED + Back.YELLOW + secret + Style.RESET_ALL,
                                     ),
                                 )
                             )
@@ -147,9 +135,7 @@ class Searcher(object):
 
             exit(-1)
         else:
-            print(
-                "No known secrets found. Consider trying out detect-secrets and git-secrets, too."
-            )
+            print("No known secrets found. Consider trying out detect-secrets and git-secrets, too.")
 
     def go(self):  # type: () -> None
         """

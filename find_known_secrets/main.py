@@ -1,4 +1,3 @@
-# coding=utf-8
 """
 Find Known Secrets. Are you about to check in passwords and keys into your public source control and lose your job?
 
@@ -15,16 +14,14 @@ Options:
   --version           Show version.
   --debug=<debug>     Show diagnostic info [default: False]
 """
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+from __future__ import division, print_function, unicode_literals
 
 import logging
 
 from docopt import docopt
 
-from find_known_secrets.searcher import Searcher
 from find_known_secrets.__version__ import __version__
+from find_known_secrets.searcher import Searcher
 
 logger = logging.getLogger(__name__)
 

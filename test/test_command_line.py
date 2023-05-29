@@ -5,26 +5,26 @@ Tests
 import os
 import sys
 import subprocess
-initial_pwd= os.getcwd()
+
+initial_pwd = os.getcwd()
 here = os.path.abspath(os.path.dirname(__file__))
 PROJECT = "find_known_secrets"
 SRC = here + "/.."
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
+
 
 def execute_get_text(command):
     try:
-        result = subprocess.check_output(
-            command,
-            stderr=subprocess.STDOUT,
-            shell=True)
+        result = subprocess.check_output(command, stderr=subprocess.STDOUT, shell=True)
         print(result.decode())
     except subprocess.CalledProcessError as err:
         print(err)
         raise
 
-    return result.decode('utf-8')
+    return result.decode("utf-8")
+
 
 #
 def test_found_custom_secrets():
@@ -36,6 +36,7 @@ def test_found_custom_secrets():
         assert "Failing this run" in str(cpe.stdout)
     finally:
         os.chdir("test")
+
 
 def test_default():
     try:
@@ -55,6 +56,7 @@ def test_self_version():
         assert "." in result.split("Find Known Secrets")[1]
     finally:
         os.chdir(initial_pwd)
+
 
 def test_self_help():
     try:

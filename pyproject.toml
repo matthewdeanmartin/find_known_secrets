@@ -1,0 +1,159 @@
+[tool.poetry]
+name = "find-known-secrets"
+version = "1.3.0"
+description = "Lossy python to markdown serializer"
+authors = ["Matthew Martin <matthewdeanmartin@gmail.com>"]
+keywords = ["secrets"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+include = [
+    "find_known_secrets/**/*.py",
+    "find_known_secrets/**/*.md",
+    "find_known_secrets/**/*.txt",
+    "find_known_secrets/**/*.html",
+    "find_known_secrets/**/*.jinja",
+]
+exclude = [
+]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/matthewdeanmartin/find_known_secrets"
+homepage = "https://github.com/matthewdeanmartin/find_known_secrets"
+documentation ="https://github.com/matthewdeanmartin/find_known_secrets"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/matthewdeanmartin/find_known_secrets/issues"
+"Change Log" = "https://github.com/matthewdeanmartin/find_known_secrets/blob/main/CHANGES.md"
+
+[tool.poetry.dependencies]
+colorama = "*"
+docopt = "*"
+tabulate = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+vermin = "*"
+hypothesis = {extras = ["cli"], version = "*"}
+pre-commit = "*"
+mypy = "*"
+
+[tool.poetry.scripts]
+dedlin = 'find_known_secrets=find_known_secrets.main:process_docopts'
+
+[tool.black]
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "tests",
+]
+junit_family = "xunit1"
+norecursedirs = ["vendor", "scripts"]
+# don't know how to do this in toml
+#addopts = "--strict-markers"
+#markers =
+#	slow: marks tests as slow (deselect with '-m "not slow"')
+#	fast: marks tests as fast (deselect with '-m "not fast"')
+
+[tool.isort]
+default_section = "THIRDPARTY"
+force_grid_wrap = 0
+include_trailing_comma = true
+known_first_party = ["find_known_secrets"]
+line_length = 88
+multi_line_output = 3
+use_parentheses = true
+
+[tool.ruff]
+line-length = 1000
+
+# Enable Pyflakes `E` and `F` codes by default.
+select = ["E", "F"]
+ignore = [
+    "E722",
+    "E501",
+]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    "dead_code",
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "hide"
+]
+per-file-ignores = { }
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.10.
+target-version = "py311"
+
+[tool.scriv]
+format = "md"
+version = "literal: pyproject.toml: project.version"
+
+[tool.hatch.version]
+path = "find_known_secrets/__init__.py"
+output_file = "CHANGELOG.${config:format}"
+
+#[tool.setuptools]
+## find = {}
+#py-modules = ["find_known_secrets",
+#    "find_known_secrets.deserialize",
+#    "find_known_secrets.python_to_tables",
+#    "find_known_secrets.serialize",
+#]

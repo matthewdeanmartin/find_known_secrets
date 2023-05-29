@@ -112,3 +112,5 @@ coverage
 .build_state
 
 .idea
+
+.build_history/
