@@ -1,6 +1,7 @@
 """
 basic tests
 """
+
 import os
 import docopt
 from find_known_secrets import main
