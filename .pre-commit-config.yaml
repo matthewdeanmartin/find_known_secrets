@@ -18,7 +18,7 @@ repos:
                 args: [ --remove ]
             -   id: forbid-new-submodules
     -   repo: https://github.com/asottile/pyupgrade
-        rev: v3.21.1
+        rev: v3.21.2
         hooks:
             -   id: pyupgrade
                 args: [ --py37-plus ]
@@ -55,7 +55,7 @@ repos:
 #                args:
 #                    - --profile black
     -   repo: https://github.com/astral-sh/ruff-pre-commit
-        rev: v0.14.4
+        rev: v0.14.6
         hooks:
             -   id: ruff
                 exclude: ^dead_code/
