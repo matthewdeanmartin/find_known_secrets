@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6.0.0
+      with:
+        persist-credentials: false
     - uses: actions/setup-python@v6.1.0
       with:
         python-version: '3.11'
