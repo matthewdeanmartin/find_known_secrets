@@ -9,6 +9,10 @@ resolution-markers = [
     "python_full_version < '3.9'",
 ]
 
+[options]
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
+exclude-newer-span = "P5D"
+
 [[package]]
 name = "annotated-types"
 version = "0.7.0"
@@ -27,7 +31,7 @@ resolution-markers = [
 ]
 dependencies = [
     { name = "exceptiongroup", marker = "python_full_version == '3.9.*'" },
-    { name = "idna", version = "3.16", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "idna", marker = "python_full_version == '3.9.*'" },
     { name = "typing-extensions", version = "4.15.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/96/f0/5eb65b2bb0d09ac6776f2eb54adee6abe8228ea05b20a5ad0e4945de8aac/anyio-4.12.1.tar.gz", hash = "sha256:41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703", size = 228685, upload-time = "2026-01-06T11:45:21.246Z" }
@@ -46,7 +50,7 @@ resolution-markers = [
 ]
 dependencies = [
     { name = "exceptiongroup", marker = "python_full_version == '3.10.*'" },
-    { name = "idna", version = "3.16", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "idna", marker = "python_full_version >= '3.10'" },
     { name = "typing-extensions", version = "4.15.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10' and python_full_version < '3.13'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549ae92767a9c7b330ae88e1932ca57876909410251fe13/anyio-4.13.0.tar.gz", hash = "sha256:334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc", size = 231622, upload-time = "2026-03-24T12:59:09.671Z" }
@@ -126,7 +130,7 @@ resolution-markers = [
     "python_full_version < '3.9'",
 ]
 dependencies = [
-    { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "click", marker = "python_full_version < '3.9'" },
     { name = "mypy-extensions", marker = "python_full_version < '3.9'" },
     { name = "packaging", marker = "python_full_version < '3.9'" },
     { name = "pathspec", version = "0.12.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
@@ -167,7 +171,7 @@ resolution-markers = [
     "python_full_version == '3.9.*'",
 ]
 dependencies = [
-    { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "click", marker = "python_full_version == '3.9.*'" },
     { name = "mypy-extensions", marker = "python_full_version == '3.9.*'" },
     { name = "packaging", marker = "python_full_version == '3.9.*'" },
     { name = "pathspec", version = "1.1.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
@@ -215,7 +219,7 @@ resolution-markers = [
     "python_full_version >= '3.10' and python_full_version < '3.14'",
 ]
 dependencies = [
-    { name = "click", version = "8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "click", marker = "python_full_version >= '3.10'" },
     { name = "mypy-extensions", marker = "python_full_version >= '3.10'" },
     { name = "packaging", marker = "python_full_version >= '3.10'" },
     { name = "pathspec", version = "1.1.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
@@ -430,33 +434,12 @@ wheels = [
 name = "click"
 version = "8.1.8"
 source = { registry = "https://pypi.org/simple" }
-resolution-markers = [
-    "python_full_version == '3.9.*'",
-    "python_full_version < '3.9'",
-]
 dependencies = [
-    { name = "colorama", marker = "python_full_version < '3.10' and sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b9/2e/0090cbf739cee7d23781ad4b89a9894a41538e4fcf4c31dcdd705b78eb8b/click-8.1.8.tar.gz", hash = "sha256:ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a", size = 226593, upload-time = "2024-12-21T18:38:44.339Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/7e/d4/7ebdbd03970677812aac39c869717059dbb71a4cfc033ca6e5221787892c/click-8.1.8-py3-none-any.whl", hash = "sha256:63c132bbbed01578a06712a2d1f497bb62d9c1c0d329b7903a866228027263b2", size = 98188, upload-time = "2024-12-21T18:38:41.666Z" },
-]
-
-[[package]]
-name = "click"
-version = "8.4.1"
-source = { registry = "https://pypi.org/simple" }
-resolution-markers = [
-    "python_full_version >= '3.15'",
-    "python_full_version == '3.14.*'",
-    "python_full_version >= '3.10' and python_full_version < '3.14'",
-]
-dependencies = [
-    { name = "colorama", marker = "python_full_version >= '3.10' and sys_platform == 'win32'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/9b/98/518d8e5081007684232226f475082b30087d0f585e8457db087298259f49/click-8.4.1.tar.gz", hash = "sha256:918b5633eddf6b41c32d4f454bf0de810065c74e3f7dbf8ee5452f8be88d3e96", size = 353007, upload-time = "2026-05-22T04:08:37.769Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c7/0d/67e5b4109ea4a837e80daa87c2c696711955e40449a97e8926672534def2/click-8.4.1-py3-none-any.whl", hash = "sha256:482be17c6991b8c19c5429a1e995d9b0efdbb63172824c41f99965dc0ade8ec2", size = 116639, upload-time = "2026-05-22T04:08:35.26Z" },
 ]
 
 [[package]]
@@ -675,7 +658,7 @@ dependencies = [
     { name = "anyio", version = "4.13.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "certifi", marker = "python_full_version >= '3.9'" },
     { name = "httpcore", marker = "python_full_version >= '3.9'" },
-    { name = "idna", version = "3.16", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
+    { name = "idna", marker = "python_full_version >= '3.9'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b1/df/48c586a5fe32a0f01324ee087459e112ebb7224f646c0b5023f5e79e9956/httpx-0.28.1.tar.gz", hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc", size = 141406, upload-time = "2024-12-06T15:37:23.222Z" }
 wheels = [
@@ -716,7 +699,7 @@ wheels = [
 [package.optional-dependencies]
 cli = [
     { name = "black", version = "24.8.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
-    { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "click", marker = "python_full_version < '3.9'" },
     { name = "rich", version = "14.3.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
 ]
 
@@ -740,7 +723,7 @@ wheels = [
 [package.optional-dependencies]
 cli = [
     { name = "black", version = "25.11.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
-    { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "click", marker = "python_full_version == '3.9.*'" },
     { name = "rich", version = "15.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
 ]
 
@@ -765,7 +748,7 @@ wheels = [
 [package.optional-dependencies]
 cli = [
     { name = "black", version = "26.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-    { name = "click", version = "8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "click", marker = "python_full_version >= '3.10'" },
     { name = "rich", version = "15.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
 
@@ -811,27 +794,9 @@ wheels = [
 name = "idna"
 version = "3.15"
 source = { registry = "https://pypi.org/simple" }
-resolution-markers = [
-    "python_full_version < '3.9'",
-]
 sdist = { url = "https://files.pythonhosted.org/packages/82/77/7b3966d0b9d1d31a36ddf1746926a11dface89a83409bf1483f0237aa758/idna-3.15.tar.gz", hash = "sha256:ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc", size = 199245, upload-time = "2026-05-12T22:45:57.011Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl", hash = "sha256:048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8", size = 72340, upload-time = "2026-05-12T22:45:55.733Z" },
-]
-
-[[package]]
-name = "idna"
-version = "3.16"
-source = { registry = "https://pypi.org/simple" }
-resolution-markers = [
-    "python_full_version >= '3.15'",
-    "python_full_version == '3.14.*'",
-    "python_full_version >= '3.10' and python_full_version < '3.14'",
-    "python_full_version == '3.9.*'",
-]
-sdist = { url = "https://files.pythonhosted.org/packages/1a/88/bcf9709822fe69d02c2a6a77956c98ce6ea8ca8767a9aadcedc7eb6a2390/idna-3.16.tar.gz", hash = "sha256:d7a6da03db833450fca25d2358ac9ff06cd624577a4aea3a596d5c0f77b8e03d", size = 203770, upload-time = "2026-05-22T00:16:18.781Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/94/16/70255075a9859a0e3adb789b68ceb0e210dec03934245fd98d248226572f/idna-3.16-py3-none-any.whl", hash = "sha256:cc246e3a3f89580c3a951b5ad298ca4638078b2cdd4f115654332b5c26daded5", size = 74165, upload-time = "2026-05-22T00:16:16.698Z" },
 ]
 
 [[package]]
@@ -863,7 +828,7 @@ wheels = [
 
 [[package]]
 name = "jiggle-version"
-version = "2.2.0"
+version = "2.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "packaging" },
@@ -878,9 +843,9 @@ dependencies = [
     { name = "tomlkit", version = "0.13.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "tomlkit", version = "0.15.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/56/51/543ffc8975bf64c74f0be4acf071466accc586b4b69606eb66fbfb63b725/jiggle_version-2.2.0.tar.gz", hash = "sha256:b1557d240c616d047496f3cec70cb2f2c5245a6adeda31791ce56e3acadfa4ef", size = 11417530, upload-time = "2026-05-24T23:05:09.269Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/e2/14573b60099c517057818da6ee67b94fd805754ef82ba65d4de4a328298f/jiggle_version-2.1.1.tar.gz", hash = "sha256:d12a51090679ce84f5f133ab9a765ec0894fcc35521d343ed597a43e0a9b6502", size = 11413991, upload-time = "2026-03-27T01:06:43.53Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2a/c5/daed0eea4a504f61d0c6bdd4f210913d336ec756bfec1f85fb11304e41e0/jiggle_version-2.2.0-py3-none-any.whl", hash = "sha256:d9f8e095d4bfe4a51474d140afe8a1dc5a3e5d0894264096f209bc327d7f0b0f", size = 33168, upload-time = "2026-05-24T23:05:07.467Z" },
+    { url = "https://files.pythonhosted.org/packages/ba/30/70826ca1ba473e48939faa808c63a20b6593a146da86380f42717fbfea8e/jiggle_version-2.1.1-py3-none-any.whl", hash = "sha256:c0297373d25fb93d3a70eff41916986e192bd2ae4cb6b65c133f8f3ca318d3b8", size = 32372, upload-time = "2026-03-27T01:06:42.046Z" },
 ]
 
 [[package]]
@@ -1465,7 +1430,7 @@ resolution-markers = [
     "python_full_version == '3.9.*'",
 ]
 dependencies = [
-    { name = "click", version = "8.1.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "click", marker = "python_full_version == '3.9.*'" },
     { name = "joblib", marker = "python_full_version == '3.9.*'" },
     { name = "regex", version = "2026.1.15", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
     { name = "tqdm", marker = "python_full_version == '3.9.*'" },
@@ -1485,7 +1450,7 @@ resolution-markers = [
     "python_full_version >= '3.10' and python_full_version < '3.14'",
 ]
 dependencies = [
-    { name = "click", version = "8.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "click", marker = "python_full_version >= '3.10'" },
     { name = "joblib", marker = "python_full_version >= '3.10'" },
     { name = "regex", version = "2026.5.9", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "tqdm", marker = "python_full_version >= '3.10'" },
@@ -1506,7 +1471,7 @@ wheels = [
 
 [[package]]
 name = "openai"
-version = "2.38.0"
+version = "2.37.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio", version = "4.12.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
@@ -1519,9 +1484,9 @@ dependencies = [
     { name = "tqdm", marker = "python_full_version >= '3.9'" },
     { name = "typing-extensions", version = "4.15.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8f/12/cfa322c5f5dd8fa21aab9a7a8e979e7a11123800f86ca8d82eb68a83d213/openai-2.38.0.tar.gz", hash = "sha256:798694c6cf74145541fda94325b6f8f72d8e1fd0262cc137c8d728177a6a4ce3", size = 772764, upload-time = "2026-05-21T21:23:42.105Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/32/50/5901f01ef14e6c27788beb91e54fef5d6204fb5fb9e97402fc8a14de2e32/openai-2.37.0.tar.gz", hash = "sha256:f4bc562cc5f3a43d40d678105572d9d44765f6e0f50c125f63055419b72f4bd9", size = 754706, upload-time = "2026-05-15T22:30:35.428Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0a/bf/ccff9be562e24207716d04ef9dc931c76aff0c89a7265da43e2104d7fe06/openai-2.38.0-py3-none-any.whl", hash = "sha256:ec6661c57b2dcc47414a767e6e3335c7ed3d19c9696999283a3c82e95c756a3c", size = 1344910, upload-time = "2026-05-21T21:23:39.636Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/4c/bce61680d0699a78a405fd9a67989b175ba020590428831aab2ab1d2be7c/openai-2.37.0-py3-none-any.whl", hash = "sha256:814633888b8f3b1ffd6615697c6e4ef93632d08b7c2e28c8c5ef3556e5a10107", size = 1303238, upload-time = "2026-05-15T22:30:32.767Z" },
 ]
 
 [[package]]
@@ -1867,7 +1832,7 @@ wheels = [
 
 [[package]]
 name = "pydoc-fork"
-version = "3.4.0"
+version = "3.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "docopt-ng", marker = "python_full_version >= '3.10'" },
@@ -1877,9 +1842,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version >= '3.10'" },
     { name = "typing-extensions", version = "4.15.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cd/1c/20ba0e3ddb78f873f1cc60553e8a500f29d4cef891526e6e4c1cc60caf23/pydoc_fork-3.4.0.tar.gz", hash = "sha256:b9fd3035d66ac81aff1d3bb51febebb49ca821ea1b582b1bc4bf34b487731287", size = 85853, upload-time = "2026-05-24T20:32:05.124Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/af/80/d3e988bdb729df73ad388ce0bf21e82c13adf0d84c8e58b7729748c2cab8/pydoc_fork-3.3.0.tar.gz", hash = "sha256:ac35a98faad5731263dbdcc0cc8fbe3cd085bc7d71df54eb19c1fbda835aab0f", size = 26608, upload-time = "2024-02-18T23:10:18.479Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/22/f2/304f144279d858eb2576095b14529c50a912da806932bb1956e1c014c5eb/pydoc_fork-3.4.0-py3-none-any.whl", hash = "sha256:aebd96098a50b35c90c7d4cb626f33f79eac92533ca18d55c2a82abfa3e6d0af", size = 47981, upload-time = "2026-05-24T20:32:03.463Z" },
+    { url = "https://files.pythonhosted.org/packages/57/d4/a0f742c96437675d9442cf711aae1c858b4f106115541fc8884b74692118/pydoc_fork-3.3.0-py3-none-any.whl", hash = "sha256:7f4cbd6cf81648f296b257a768ad28ef550487c2adcf9b85a8a0d7eba6c8f005", size = 34931, upload-time = "2024-02-18T23:10:16.544Z" },
 ]
 
 [[package]]
@@ -2431,7 +2396,7 @@ resolution-markers = [
 dependencies = [
     { name = "certifi", marker = "python_full_version < '3.9'" },
     { name = "charset-normalizer", marker = "python_full_version < '3.9'" },
-    { name = "idna", version = "3.15", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "idna", marker = "python_full_version < '3.9'" },
     { name = "urllib3", version = "2.2.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e1/0a/929373653770d8a0d7ea76c37de6e41f11eb07559b103b1c02cafb3f7cf8/requests-2.32.4.tar.gz", hash = "sha256:27d0316682c8a29834d3264820024b62a36942083d52caf2f14c0591336d3422", size = 135258, upload-time = "2025-06-09T16:43:07.34Z" }
@@ -2449,7 +2414,7 @@ resolution-markers = [
 dependencies = [
     { name = "certifi", marker = "python_full_version == '3.9.*'" },
     { name = "charset-normalizer", marker = "python_full_version == '3.9.*'" },
-    { name = "idna", version = "3.16", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "idna", marker = "python_full_version == '3.9.*'" },
     { name = "urllib3", version = "2.6.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz", hash = "sha256:dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf", size = 134517, upload-time = "2025-08-18T20:46:02.573Z" }
@@ -2469,7 +2434,7 @@ resolution-markers = [
 dependencies = [
     { name = "certifi", marker = "python_full_version >= '3.10'" },
     { name = "charset-normalizer", marker = "python_full_version >= '3.10'" },
-    { name = "idna", version = "3.16", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "idna", marker = "python_full_version >= '3.10'" },
     { name = "urllib3", version = "2.7.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz", hash = "sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed", size = 142856, upload-time = "2026-05-14T19:25:27.735Z" }
