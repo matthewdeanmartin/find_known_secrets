@@ -24,7 +24,7 @@ jobs:
     - name: Install global dependencies
       run: |
         pipx install isort && pipx install black && pipx install bandit && \
-        pipx install pylint && pipx install pre-commit && pipx install poetry
+        pipx install pylint && pipx install poetry
 
     - name: Install Dependencies
       run: pipenv install --dev --skip-lock
