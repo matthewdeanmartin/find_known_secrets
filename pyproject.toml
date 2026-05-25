@@ -65,8 +65,9 @@ dev = [
 
 [tool.uv]
 default-groups = ["dev"]
-universal = true
 
+[tool.uv.pip]
+universal = true
 [tool.black]
 line-length = 120
 target-version = ['py39']
