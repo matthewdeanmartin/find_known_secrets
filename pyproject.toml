@@ -57,10 +57,14 @@ dev = [
     "hypothesis[cli]",
     "pre-commit",
     "mypy",
+    "pylint>=3.0",
     "jiggle-version>=2.1.0",
     "troml-dev-status>=0.6.0; python_version >= '3.9'",
     "dont-be-lazy>=0.1.2; python_version >= '3.10'",
     "pydoc-fork>=3.0.0; python_version >= '3.10'",
+    "black>=24.0",
+    "isort>=5.13",
+    "ruff>=0.4",
 ]
 
 [tool.uv]
