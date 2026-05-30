@@ -15,3 +15,10 @@ High entropy detection - detect-secrets does this.
 Search for known secrets - Some secrets are found in conventional locations, such as AWS keys. They are typically key value pairs. As far as I known, this is a novel approach as of July 2018. So I wrote one.
 
 All three approaches have different failure profiles.
+
+## Project Links
+
+- [GitHub](https://github.com/matthewdeanmartin/find_known_secrets)
+- [PyPI](https://pypi.org/project/find-known-secrets/)
+- [Bug Tracker](https://github.com/matthewdeanmartin/find_known_secrets/issues)
+- [Change Log](https://github.com/matthewdeanmartin/find_known_secrets/blob/main/CHANGELOG.md)

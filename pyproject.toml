@@ -31,7 +31,7 @@ Repository = "https://github.com/matthewdeanmartin/find_known_secrets"
 Homepage = "https://github.com/matthewdeanmartin/find_known_secrets"
 Documentation = "https://github.com/matthewdeanmartin/find_known_secrets"
 "Bug Tracker" = "https://github.com/matthewdeanmartin/find_known_secrets/issues"
-"Change Log" = "https://github.com/matthewdeanmartin/find_known_secrets/blob/main/CHANGES.md"
+"Change Log" = "https://github.com/matthewdeanmartin/find_known_secrets/blob/main/CHANGELOG.md"
 
 [project.scripts]
 find_known_secrets = "find_known_secrets.main:process_docopts"
