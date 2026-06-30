@@ -65,7 +65,7 @@ dev = [
     "black>=24.0",
     "isort>=5.13",
     "ruff>=0.4",
-    "keepachangelog-manager-fork>=6.1.1,<7; python_version >= '3.9'",
+    "keepachangelog-manager-fork[all]>=6.5.0; python_version >= '3.9'",
 ]
 
 [tool.uv]
