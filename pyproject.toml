@@ -19,6 +19,10 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
 dependencies = [
     "colorama",
@@ -50,6 +54,15 @@ include = [
     "find_known_secrets/**/*.jinja",
 ]
 
+[tool.hatch.build.targets.sdist]
+# No section previously existed, so hatchling swept the whole working tree
+# (including .devcontainer/, .github/workflows/, .pre-commit-config.yaml,
+# Pipfile.lock, uv.lock, .pylintrc); pin an explicit include list instead.
+include = [
+    "/README.md", "/LICENSE", "/CHANGELOG.md", "/CHANGES.md",
+    "/find_known_secrets", "/test",
+]
+
 [dependency-groups]
 dev = [
     "pytest",
@@ -65,7 +78,8 @@ dev = [
     "black>=24.0",
     "isort>=5.13",
     "ruff>=0.4",
-    "keepachangelog-manager-fork[all]>=6.6.0; python_version >= '3.9'",
+    "keepachangelog-manager-fork[all]>=6.6.0; python_version >= '3.9' and python_version < '3.15'",  # [all] extra pulls google-re2, no cp315 wheel / fails to build on Windows
+    "keepachangelog-manager-fork>=6.6.0; python_version >= '3.15'",  # base package only; drop [all] extra to avoid google-re2 on 3.15+
 ]
 
 [tool.uv]
