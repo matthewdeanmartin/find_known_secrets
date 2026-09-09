@@ -78,8 +78,8 @@ dev = [
     "black>=24.0",
     "isort>=5.13",
     "ruff>=0.4",
-    "keepachangelog-manager-fork[all]>=6.6.0; python_version >= '3.9' and python_version < '3.15'",  # [all] extra pulls google-re2, no cp315 wheel / fails to build on Windows
-    "keepachangelog-manager-fork>=6.6.0; python_version >= '3.15'",  # base package only; drop [all] extra to avoid google-re2 on 3.15+
+    "keepachangelog-manager-fork[fast]>=6.8.0; python_version >= '3.9' and python_version < '3.15'",  # [fast] adds orjson+re2; google-re2 has no cp315 wheel on Windows
+    "keepachangelog-manager-fork[stdlib]>=6.8.0; python_version >= '3.15'",  # [stdlib] is pure-Python: same features, no native wheels needed
 ]
 
 [tool.uv]

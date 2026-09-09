@@ -1136,7 +1136,8 @@ dev = [
     { name = "jiggle-version", version = "2.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "jiggle-version", version = "2.2.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
     { name = "keepachangelog-manager-fork", marker = "python_full_version >= '3.9'" },
-    { name = "keepachangelog-manager-fork", extra = ["all"], marker = "python_full_version >= '3.9' and python_full_version < '3.15'" },
+    { name = "keepachangelog-manager-fork", extra = ["fast"], marker = "python_full_version >= '3.9' and python_full_version < '3.15'" },
+    { name = "keepachangelog-manager-fork", marker = "python_full_version >= '3.15'" },
     { name = "mypy", version = "1.14.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "mypy", version = "1.19.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
     { name = "mypy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
@@ -1169,8 +1170,8 @@ dev = [
     { name = "hypothesis", extras = ["cli"] },
     { name = "isort", specifier = ">=5.13" },
     { name = "jiggle-version", specifier = ">=2.1.0" },
-    { name = "keepachangelog-manager-fork", marker = "python_full_version >= '3.15'", specifier = ">=6.6.0" },
-    { name = "keepachangelog-manager-fork", extras = ["all"], marker = "python_full_version >= '3.9' and python_full_version < '3.15'", specifier = ">=6.6.0" },
+    { name = "keepachangelog-manager-fork", extras = ["fast"], marker = "python_full_version >= '3.9' and python_full_version < '3.15'", specifier = ">=6.8.0" },
+    { name = "keepachangelog-manager-fork", extras = ["stdlib"], marker = "python_full_version >= '3.15'", specifier = ">=6.8.0" },
     { name = "mypy" },
     { name = "pre-commit" },
     { name = "pydoc-fork", marker = "python_full_version >= '3.10'", specifier = ">=3.0.0" },
@@ -2261,7 +2262,7 @@ wheels = [
 
 [[package]]
 name = "keepachangelog-manager-fork"
-version = "6.6.0"
+version = "6.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "inquirer", version = "3.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9.2'" },
@@ -2275,17 +2276,15 @@ dependencies = [
     { name = "urllib3", version = "2.6.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "urllib3", version = "2.7.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9e/f5/6461361cb54028a5aa6a35cdc61f492b6f1bc2c9b0e36b70f04c78c07b50/keepachangelog_manager_fork-6.6.0.tar.gz", hash = "sha256:4d1c05dcb2558847ad3a102e85df2fc51e1ddaba3652b063a1e1fff4530ae0cf", size = 1336568, upload-time = "2026-07-05T14:17:19.521Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/47/75/dfadeb2a8e43701165030b414ebdabb800e2952d220f98e6d1c574077d51/keepachangelog_manager_fork-6.8.0.tar.gz", hash = "sha256:ebc90046ff374f6b9e2bebbc1e505910b40d4d2637677e787a55ab6fc9ad27a3", size = 1414432, upload-time = "2026-09-09T18:11:25.024Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/17/f9817db0c46851fe109897ac9d9f64b6f74a68174db87fbc3d23592067ba/keepachangelog_manager_fork-6.6.0-py3-none-any.whl", hash = "sha256:a4152c4f9a8f0d8698a580ff1680b7a60265d60fff299b482cc3c8d1220cb7fd", size = 191399, upload-time = "2026-07-05T14:17:17.911Z" },
+    { url = "https://files.pythonhosted.org/packages/1e/13/d3d17ac45bd68d31e85ccace9f7d8b6f3610f81ee7cfb902b95f1c0f49dc/keepachangelog_manager_fork-6.8.0-py3-none-any.whl", hash = "sha256:0fdc1dd648308fb46c225b92ff92738d8b6581188a2564aecc3dbca4c635c550", size = 193172, upload-time = "2026-09-09T18:11:23.067Z" },
 ]
 
 [package.optional-dependencies]
-all = [
+fast = [
     { name = "google-re2", version = "1.1.20250805", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10' or python_full_version >= '3.15'" },
     { name = "google-re2", version = "1.1.20251105", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10' and python_full_version < '3.15'" },
-    { name = "mdformat", version = "0.7.22", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10' or python_full_version >= '3.15'" },
-    { name = "mdformat", version = "1.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10' and python_full_version < '3.15'" },
     { name = "orjson", version = "3.11.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10' or python_full_version >= '3.15'" },
     { name = "orjson", version = "3.12.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10' and python_full_version < '3.15'" },
 ]
@@ -2617,44 +2616,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e7/ff/0ffefdcac38932a54d2b5eed4e0ba8a408f215002cd178ad1df0f2806ff8/mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325", size = 9658, upload-time = "2022-01-24T01:14:51.113Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/27/1a/1f68f9ba0c207934b35b86a8ca3aad8395a3d6dd7921c0686e23853ff5a9/mccabe-0.7.0-py2.py3-none-any.whl", hash = "sha256:6c2d30ab6be0e4a46919781807b4f0d834ebdd6c6e3dca0bda5a15f863427b6e", size = 7350, upload-time = "2022-01-24T01:14:49.62Z" },
-]
-
-[[package]]
-name = "mdformat"
-version = "0.7.22"
-source = { registry = "https://pypi.org/simple" }
-resolution-markers = [
-    "python_full_version >= '3.9.2' and python_full_version < '3.10'",
-    "python_full_version > '3.9' and python_full_version < '3.9.2'",
-    "python_full_version == '3.9'",
-]
-dependencies = [
-    { name = "importlib-metadata", version = "8.7.1", source = { registry = "https://pypi.org/simple" } },
-    { name = "markdown-it-py", version = "3.0.0", source = { registry = "https://pypi.org/simple" } },
-    { name = "tomli" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/fc/eb/b5cbf2484411af039a3d4aeb53a5160fae25dd8c84af6a4243bc2f3fedb3/mdformat-0.7.22.tar.gz", hash = "sha256:eef84fa8f233d3162734683c2a8a6222227a229b9206872e6139658d99acb1ea", size = 34610, upload-time = "2025-01-30T18:00:51.418Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f2/6f/94a7344f6d634fe3563bea8b33bccedee37f2726f7807e9a58440dc91627/mdformat-0.7.22-py3-none-any.whl", hash = "sha256:61122637c9e1d9be1329054f3fa216559f0d1f722b7919b060a8c2a4ae1850e5", size = 34447, upload-time = "2025-01-30T18:00:48.708Z" },
-]
-
-[[package]]
-name = "mdformat"
-version = "1.0.0"
-source = { registry = "https://pypi.org/simple" }
-resolution-markers = [
-    "python_full_version == '3.14.*'",
-    "python_full_version >= '3.12' and python_full_version < '3.14'",
-    "python_full_version == '3.11.*'",
-    "python_full_version == '3.10.*'",
-]
-dependencies = [
-    { name = "markdown-it-py", version = "4.2.0", source = { registry = "https://pypi.org/simple" } },
-    { name = "tomli", marker = "python_full_version < '3.11' or python_full_version >= '3.15'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/3f/05/32b5e14b192b0a8a309f32232c580aefedd9d06017cb8fe8fce34bec654c/mdformat-1.0.0.tar.gz", hash = "sha256:4954045fcae797c29f86d4ad879e43bb151fa55dbaf74ac6eaeacf1d45bb3928", size = 56953, upload-time = "2025-10-16T12:05:03.695Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/9a/8fe71b95985ca7a4001effbcc58e5a07a1f2a2884203f74dcf48a3b08315/mdformat-1.0.0-py3-none-any.whl", hash = "sha256:bca015d65a1d063a02e885a91daee303057bc7829c2cd37b2075a50dbb65944b", size = 53288, upload-time = "2025-10-16T12:05:02.607Z" },
 ]
 
 [[package]]
