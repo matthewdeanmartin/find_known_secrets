@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replace the source-only `docopt` dependency with `docopt-ng>=0.9,<1`, retaining the CLI grammar and allowing installation entirely from published wheels, including Python 3.15 prereleases.
+
 ## [1.3.0] - 2023-05-29
 
 ### Changed
