@@ -3,16 +3,16 @@
 
 FILES := $(wildcard **/*.py)
 
-# if you wrap everything in pipenv run, it runs slower.
+# if you wrap everything in uv run, it runs slower.
 ifeq ($(origin VIRTUAL_ENV),undefined)
-    VENV := pipenv run
+    VENV := uv run
 else
     VENV :=
 endif
 
-Pipfile.lock: Pipfile
+uv.lock: pyproject.toml
 	@echo "Installing dependencies"
-	@pipenv install --dev
+	@uv sync --all-extras
 
 clean-pyc:
 	@echo "Removing compiled files"
@@ -29,55 +29,43 @@ clean: clean-pyc clean-test
 
 # tests can't be expected to pass if dependencies aren't installed.
 # tests are often slow and linting is fast, so run tests on linted code.
-test: clean .build_history/pylint .build_history/bandit Pipfile.lock
+test: clean pylint bandit
 	@echo "Running unit tests"
 	# $(VENV) pytest find_known_secrets --doctest-modules
-	$(VENV) python -m unittest discover
 	$(VENV) py.test test --cov=find_known_secrets --cov-report=html --cov-fail-under 50
 
-.build_history:
-	@mkdir -p .build_history
 
-.build_history/isort: .build_history $(FILES)
+isort:
 	@echo "Formatting imports"
-	$(VENV) isort find_known_secrets markmodule
-	@touch .build_history/isort
+	$(VENV) isort find_known_secrets test
 
 .PHONY: isort
-isort: .build_history/isort
 
-.build_history/black: .build_history .build_history/isort $(FILES)
+black: isort
 	@echo "Formatting code"
-	$(VENV) black . --exclude .virtualenv
-	@touch .build_history/black
+	$(VENV) black find_known_secrets test
 
 .PHONY: black
-black: .build_history/black
 
-.build_history/pre-commit: .build_history .build_history/isort .build_history/black
+pre-commit: isort black
 	@echo "Pre-commit checks"
 	$(VENV) pre-commit run --all-files
-	@touch .build_history/pre-commit
 
 .PHONY: pre-commit
-pre-commit: .build_history/pre-commit
 
-.build_history/bandit: .build_history $(FILES)
+bandit:
 	@echo "Security checks"
 	$(VENV)  bandit .
-	@touch .build_history/bandit
 
 .PHONY: bandit
-bandit: .build_history/bandit
 
 .PHONY: pylint
-.build_history/pylint: .build_history .build_history/isort .build_history/black $(FILES)
+pylint: isort black
 	@echo "Linting with pylint"
 	$(VENV) pylint find_known_secrets --fail-under 9.7
-	@touch .build_history/pylint
 
 # for when using -j (jobs, run in parallel)
-.NOTPARALLEL: .build_history/isort .build_history/black
+.NOTPARALLEL: isort black
 
 check: test pylint bandit
 
