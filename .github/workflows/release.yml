@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Set up Python 3.11
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v7.1.0
         with: {python-version: '3.11'}
       - name: Set up uv
         uses: astral-sh/setup-uv@v10.3.0
@@ -73,7 +73,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Set up Python 3.11
-        uses: actions/setup-python@v7.0.0
+        uses: actions/setup-python@v7.1.0
         with: {python-version: '3.11'}
       - name: Set up uv
         uses: astral-sh/setup-uv@v10.3.0
